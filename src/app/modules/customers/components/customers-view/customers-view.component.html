@@ -1,0 +1,397 @@
+<!------------------------------------>
+<!-- PORTRAIT DESIGN - 100% CHECKED -->
+<div class="portrait-design">
+  <div class="container p-3">
+
+    <!-- FULL NAME -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="fs-3 fw-bold text-uppercase">{{customer.fullName}}</p>
+      </div>
+    </div>
+
+    <!-- PHOTOS CAROUSEL -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <ngb-carousel>
+          <ng-template ngbSlide>
+            <img
+              (click)="openModalPhoto(modalPhoto, customer.photoURL1)"
+              style="max-height: 200px"
+              src="{{customer.photoURL1}}"
+              alt="{{customer.fullName}}">
+          </ng-template>
+
+          <ng-template ngbSlide>
+            <img
+              (click)="openModalPhoto(modalPhoto, customer.photoURL2)"
+              style="max-height: 200px"
+              src="{{customer.photoURL2}}"
+              alt="{{customer.fullName}}">
+          </ng-template>
+
+          <ng-template ngbSlide>
+            <img
+              (click)="openModalPhoto(modalPhoto, customer.photoURL3)"
+              style="max-height: 200px"
+              src="{{customer.photoURL3}}"
+              alt="{{customer.fullName}}">
+          </ng-template>
+        </ngb-carousel>
+      </div>
+    </div>
+
+    <!-- SEPARATOR -->
+    <div class="row">
+      <div class="col-12">
+        <hr class="text-muted">
+      </div>
+    </div>
+
+    <!-- DATA -->
+    <div class="row" style="margin-bottom: 100px">
+      <div class="col-12">
+        <ul class="list-group list-group-flush">
+
+          <!-- EMAIL -->
+          <li class="list-group-item border-0">
+            <p class="small text-muted mb-0">Correo electrónico:</p>
+            <p class="fw-bold">{{customer.email}}</p>
+          </li>
+
+          <!-- PHONE AND DNI -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- PHONE -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Teléfono:</p>
+                <p class="fw-bold">{{customer.phone}}</p>
+              </div>
+              <!-- DNI -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">DNI:</p>
+                <p class="fw-bold">{{customer.dni}}</p>
+              </div>
+            </div>
+          </li>
+
+          <!-- BIRTHDAY AND USER SYSTEM -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- BIRTHDAY -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Fecha de nacimiento:</p>
+                <p class="fw-bold">{{customer.birthDay.toMillis() | date:'MMMM d, y'}}</p>
+              </div>
+              <!-- USER SYSTEM -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Usuario abonado:</p>
+                <p *ngIf="customer.userSystem === ''">-------</p>
+                <p class="fw-bold" *ngIf="customer.userSystem !==''">{{customer.userSystem}}</p>
+              </div>
+            </div>
+          </li>
+
+          <!-- FACEBOOK AND INSTAGRAM -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- FACEBOOK -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Facebook:</p>
+                <p *ngIf="customer.facebookURL ===''">-------</p>
+                <p class="fw-bold" *ngIf="customer.facebookURL !==''">
+                  <a href="https://www.facebook.com/{{customer.facebookURL}}"
+                     target="_blank">{{customer.facebookURL}}</a>
+                </p>
+              </div>
+              <!-- INSTAGRAM -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Instagram:</p>
+                <p *ngIf="customer.instagramURL ===''">--------</p>
+                <p class="fw-bold" *ngIf="customer.instagramURL !==''">
+                  <a href="https://www.instagram.com/{{customer.instagramURL}}"
+                     target="_blank">{{customer.instagramURL}}</a>
+                </p>
+              </div>
+            </div>
+          </li>
+
+          <!-- LAST UPDATE AND CREATED DATE -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- LAST UPDATE -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Última actualización:</p>
+                <p class="fw-bold">{{customer.updatedAt.toMillis() | date:'MMMM d, y'}}</p>
+              </div>
+              <!-- CREATED DATE -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Registrado:</p>
+                <p class="fw-bold">{{customer.createdAt.toMillis() | date:'MMMM d, y'}}</p>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- FOOTER - BUTTONS -->
+    <div class="row fixed-bottom bg-white p-3">
+      <div class="col-12 d-flex justify-content-between">
+
+        <!-- BUTTON BACK -->
+        <button
+          (click)="getTemplate('LIST')"
+          type="button"
+          class="btn btn-primary rounded-circle">
+          <i class="bi bi-arrow-90deg-left fs-3"></i>
+        </button>
+
+        <!-- BUTTON DELETE -->
+        <button
+          (click)="openModalDelete(modalDelete)"
+          type="button"
+          class="btn btn-danger rounded-circle">
+          <i class="bi bi-trash-fill fs-3"></i>
+        </button>
+
+        <!-- BUTTON EDIT -->
+        <button
+          (click)="getTemplate('EDIT')"
+          type="button"
+          class="btn btn-primary rounded-circle">
+          <i class="bi bi-pencil-square fs-3"></i>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!------------------------------------->
+<!-- LANDSCAPE DESIGN - 100% CHECKED -->
+<div class="landscape-design">
+  <div class="container pt-2 pt-lg-2 pt-xl-3">
+
+    <!-- HEADER -->
+    <div class="card shadow rounded p-2 p-lg-2 p-xl-3 mb-2 mb-lg-2 mb-xl-3">
+      <div class="row">
+
+        <!-- TITLE -->
+        <div class="col-6 col-xl-6">
+          <p class="fs-4 fw-bold m-0">{{customer.fullName}}</p>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="col-6 col-xl-6 d-flex justify-content-end">
+          <!-- BUTTON BACK -->
+          <button
+            (click)="getTemplate('LIST')"
+            type="button"
+            class="btn btn-secondary me-2">
+            <i class="bi bi-arrow-left"></i>
+            Atrás
+          </button>
+
+          <!-- BUTTON DELETE -->
+          <button
+            (click)="openModalDelete(modalDelete)"
+            type="button"
+            class="btn btn-danger me-2">
+            <i class="bi bi-trash-fill"></i>
+            Borrar
+          </button>
+
+          <!-- BUTTON EDIT -->
+          <button
+            (click)="getTemplate('EDIT')"
+            type="button"
+            class="btn btn-primary">
+            <i class="bi bi-pencil-square"></i>
+            Editar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOMER DATA - PHOTOS -->
+    <div class="row mb-5">
+      <!-- PHOTOS -->
+      <div class="col-4 col-xl-4">
+        <div class="card shadow p-3 rounded">
+          <img class="img-fluid m-auto" style="max-width: 150px" src="{{customer.photoURL1}}"
+               alt="{{customer.fullName}}">
+          <hr class="text-muted">
+
+          <div class="d-flex justify-content-between mb-3">
+            <div class="row">
+              <div class="col-4">
+                <!-- PHOTO 1 -->
+                <img
+                  (click)="openModalPhoto(modalPhoto, customer.photoURL1)"
+                  class="img-fluid"
+                  style="cursor:pointer"
+                  src="{{customer.photoURL1}}"
+                  alt="{{customer.fullName}}"
+                >
+              </div>
+              <div class="col-4">
+                <!-- PHOTO 2 -->
+                <img
+                  (click)="openModalPhoto(modalPhoto, customer.photoURL2)"
+                  class="img-fluid"
+                  style="cursor:pointer"
+                  src="{{customer.photoURL2}}"
+                  alt="{{customer.fullName}}"
+                >
+              </div>
+              <div class="col-4">
+                <!-- PHOTO 3 -->
+                <img
+                  (click)="openModalPhoto(modalPhoto, customer.photoURL3)"
+                  class="img-fluid"
+                  style="cursor:pointer"
+                  src="{{customer.photoURL3}}"
+                  alt="{{customer.fullName}}"
+                >
+              </div>
+            </div>
+          </div>
+
+          <p class="text-muted small m-auto">(Click en las imagenes para agrandar)</p>
+        </div>
+      </div>
+
+      <!-- DATA -->
+      <div class="col-8 col-xl-8">
+        <div class="card shadow p-3 rounded">
+          <ul class="list-group list-group-flush">
+
+            <!-- EMAIL -->
+            <li class="list-group-item border-0 mb-3">
+              <p class="small m-0">Correo electrónico:</p>
+              <p class="fw-bold m-0">{{customer.email}}</p>
+            </li>
+
+            <!-- PHONE AND DNI -->
+            <li class="list-group-item border-0 mb-3">
+              <div class="row">
+                <!-- PHONE -->
+                <div class="col-6">
+                  <p class="small m-0">Teléfono:</p>
+                  <p class="fw-bold m-0">{{customer.phone}}</p>
+                </div>
+                <!-- DNI -->
+                <div class="col-6">
+                  <p class="small m-0">DNI:</p>
+                  <p class="fw-bold m-0">{{customer.dni}}</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- USER AND BIRTHDAY -->
+            <li class="list-group-item border-0 mb-3">
+              <div class="row">
+                <!-- USER -->
+                <div class="col-6">
+                  <p class="small m-0">Usuario Abonado:</p>
+                  <p class="fw-bold m-0" *ngIf="customer.userSystem !==''">{{customer.userSystem}}</p>
+                  <p class="m-0" *ngIf="customer.userSystem ===''">------</p>
+                </div>
+                <!-- BIRTHDAY -->
+                <div class="col-6">
+                  <p class="small m-0">Fecha de nacimiento:</p>
+                  <p class="fw-bold m-0">{{customer.birthDay.toMillis() | date:'MMMM d, y'}}</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- FACEBOOK AND INSTAGRAM -->
+            <li class="list-group-item border-0 mb-3">
+              <div class="row">
+                <!-- FACEBOOK -->
+                <div class="col-6">
+                  <p class="small m-0">Facebook:</p>
+                  <p class="fw-bold m-0" *ngIf="customer.facebookURL !==''">
+                    <a href="https://www.facebook.com/{{customer.facebookURL}}"
+                       target="_blank">{{customer.facebookURL}}</a>
+                  </p>
+                  <p class="m-0" *ngIf="customer.facebookURL ===''">------</p>
+                </div>
+                <!-- INSTAGRAM -->
+                <div class="col-6">
+                  <p class="small m-0">Instagram:</p>
+
+                  <p class="fw-bold m-0" *ngIf="customer.instagramURL !==''">
+                    <a href="https://www.instagram.com/{{customer.instagramURL}}"
+                       target="_blank">{{customer.instagramURL}}</a>
+                  </p>
+                  <p class="m-0" *ngIf="customer.instagramURL ===''">------</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- CREATED AND UPDATED -->
+            <li class="list-group-item border-0 mb-3">
+              <div class="row">
+                <!-- CREATED -->
+                <div class="col-6">
+                  <p class="small m-0">Registrado:</p>
+                  <p class="fw-bold m-0">{{customer.createdAt.toMillis() | date:'MMMM d, y'}}</p>
+                </div>
+                <!-- UPDATED -->
+                <div class="col-6">
+                  <p class="small m-0">Última Actualización:</p>
+                  <p class="fw-bold m-0">{{customer.updatedAt.toMillis() | date:'MMMM d, y'}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!------------>
+<!-- MODALS -->
+<!-- MODAL DELETE -->
+<ng-template #modalDelete let-modal>
+  <div class="modal-body text-center">
+    <p class="lead">¿Desea eliminar el cliente?</p>
+
+    <!-- BUTTON CANCEL -->
+    <button
+      type="button"
+      class="btn btn-danger me-2"
+      (click)="modal.dismiss('Cross click')">
+      <i class="bi bi-x-circle-fill me-1"></i>
+      Cancelar
+    </button>
+
+    <!-- BUTTON DELETE -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="deleteCustomer(customer)">
+      <i class="bi bi-trash-fill me-1"></i>
+      Aceptar
+    </button>
+
+  </div>
+</ng-template>
+
+<!-- MODAL PHOTO -->
+<ng-template #modalPhoto let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body text-center">
+    <img class="img-fluid" src="{{imageFullSize}}" alt="{{customer.fullName}}">
+  </div>
+</ng-template>

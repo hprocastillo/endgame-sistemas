@@ -1,0 +1,17 @@
+<div class="card shadow p-3 rounded border-0 cursor-pointer">
+  <div class="row">
+
+    <!-- PHOTO -->
+    <div class="col-3">
+      <img class="img-fluid" src="{{customer.photoURL1}}" alt="{{customer.fullName}}">
+    </div>
+
+    <!-- DATA -->
+    <div class="col-9">
+      <p class="fw-bold mb-2">{{customer.fullName}}</p>
+      <p class="small text-muted">Últ. Act:&nbsp;<span
+        class="fw-bold">{{customer.updatedAt.toMillis() | date:'mediumDate'}}</span></p>
+    </div>
+
+  </div>
+</div>

@@ -97,8 +97,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "endgame-sistema:build:production"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "11f22fe4-cf13-4f51-a989-077376477821"
   }
 }

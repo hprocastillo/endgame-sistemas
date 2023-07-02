@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons';
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/**************************/
+/** PORTRAIT --- DESIGN **/
+@media screen and (min-width: 350px) and (max-width: 1000px) and (orientation: portrait) {
+  .landscape-design {
+    display: none;
+  }
+
+  .container-camera {
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .container-camera input[type=file] {
+    top: 0;
+    left: 0;
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+  }
+}
+
+/**************************/
+/** LANDSCAPE --- DESIGN **/
+@media screen and (min-width: 600px) and (orientation: landscape) {
+  .portrait-design {
+    display: none;
+  }
+}

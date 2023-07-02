@@ -1,0 +1,100 @@
+<!-------------------------------------------->
+<!-- PORTRAIT DESIGN - 100% CHECKED ---------->
+<div class="portrait-design">
+  <div class="container-fluid bg-dark vh-100">
+    <div class="row">
+      <div class="col-10 offset-1 col-sm-6 offset-sm-3 text-center">
+
+        <!-- LOGO -->
+        <img class="m-5" ngSrc="./assets/images/modules/login/endgame-phone.png" alt="endgame" height="100" width="195"
+             priority="">
+
+        <!-- FORM -->
+        <div class="card shadow rounder p-3 border-0">
+          <p class="fs-5 fw-bold">Inicio de sesión</p>
+
+          <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+            <!-- EMAIL -->
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="email-PORT"
+                placeholder="Correo electrónico"
+                formControlName="email">
+              <label for="email-PORT">Correo electrónico</label>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control"
+                id="password-PORT"
+                placeholder="Contraseña"
+                formControlName="password">
+              <label for="password-PORT">Contraseña</label>
+            </div>
+
+            <!-- BUTTON SUBMIT -->
+            <button type="submit" class="btn btn-dark w-100">
+              INGRESAR
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-------------------------------------------->
+<!-- LANDSCAPE DESIGN - ??? CHECKED ---------->
+<div class="landscape-design">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 bg-dark text-center vh-100 p-5">
+        <!-- LOGO -->
+        <img class="img-fluid mt-lg-5" src="./assets/images/modules/login/endgame-desktop.png" alt="endgame">
+      </div>
+
+      <div class="col-6 col-lg-4 offset-lg-1 col-xl-4 offset-xl-1 pt-3 pt-lg-5 pt-xl-5">
+        <!-- FORM -->
+        <div class="card shadow rounder p-3 m-3 m-lg-3 m-xl-5 border-0 text-center">
+          <p class="fs-5 fw-bold">Inicio de sesión</p>
+
+          <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+            <!-- EMAIL -->
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="email-LAND"
+                placeholder="Correo electrónico"
+                formControlName="email">
+              <label for="email-LAND">Correo electrónico</label>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control"
+                id="password-LAND"
+                placeholder="Contraseña"
+                formControlName="password">
+              <label for="password-LAND">Contraseña</label>
+            </div>
+
+            <!-- BUTTON SUBMIT -->
+            <button type="submit" class="btn btn-dark w-100">
+              INGRESAR
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

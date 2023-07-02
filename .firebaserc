@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pro-arena-esports-sac": {
+      "hosting": {
+        "endgame-sistema": [
+          "endgame-sistema"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pro-arena-esports-sac"
+  }
+}

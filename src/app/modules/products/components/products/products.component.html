@@ -1,0 +1,40 @@
+<!-- LOGGED -->
+<ng-container *ngIf="authService.user$ | async as firebaseUser; else noLogged">
+
+  <!-- LIST PRODUCTS - TEMPLATE -->
+  <app-products-list
+    *ngIf="template === 'LIST'"
+    (productSelected)="getProductSelected($event)"
+    (outTemplate)="getTemplate($event)"
+  ></app-products-list>
+
+
+  <!-- NEW PRODUCT FORM - TEMPLATE -->
+  <app-products-new
+    *ngIf="template === 'NEW'"
+    [firebaseUser]="firebaseUser"
+    (outTemplate)="getTemplate($event)"
+  ></app-products-new>
+
+
+  <!-- VIEW PRODUCT - TEMPLATE -->
+  <app-products-view
+    *ngIf="template === 'VIEW'"
+    [product]="productSelected"
+    (outTemplate)="getTemplate($event)"
+  ></app-products-view>
+
+
+  <!-- EDIT PRODUCT - TEMPLATE -->
+  <app-products-edit
+    *ngIf="template === 'EDIT'"
+    [firebaseUser]="firebaseUser"
+    [product]="productSelected"
+    (outTemplate)="getTemplate($event)"
+  ></app-products-edit>
+
+
+</ng-container>
+
+<!-- NO LOGGED -->
+<ng-template #noLogged></ng-template>
