@@ -1,14 +1,14 @@
-<!------------------------------------>
-<!-- PORTRAIT DESIGN - 100% CHECKED -->
+<!----------------------------->
+<!-- PORTRAIT DESIGN CHECKED -->
 <div class="portrait-design">
   <div class="container p-3">
 
     <!-- HEADER -->
     <div class="row">
-      <div class="col-10">
-        <p class="fs-3 fw-bold text-uppercase">Nuevo Cliente</p>
+      <div class="col-10 col-md-11">
+        <p class="fs-4 fw-bold text-uppercase">Nuevo Cliente</p>
       </div>
-      <div class="col-2">
+      <div class="col-2 col-md-1">
         <img class="img-fluid" src="./assets/images/modules/customers/customers.png" alt="Nuevo Cliente">
       </div>
     </div>
@@ -128,7 +128,7 @@
       </div>
 
       <!-- PHOTOS -->
-      <div class="row mt-4" style="margin-bottom: 100px">
+      <div class="row mt-4 margin-bottom-page">
         <p class="fs-5 text-center">FOTOS</p>
 
         <!-- TEXT HELP -->
@@ -223,10 +223,9 @@
         </div>
       </div>
 
-      <!-- FOOTER - BUTTONS -->
+      <!-- FOOTER -->
       <div class="row fixed-bottom bg-white p-3">
         <div class="col-6">
-
           <!-- BUTTON CANCEL -->
           <button
             type="reset"
@@ -235,10 +234,8 @@
             <i class="bi bi-x-circle-fill"></i>
             Cancelar
           </button>
-
         </div>
         <div class="col-6">
-
           <!-- BUTTON SAVE /W LOADING EFFECT -->
           <button
             *ngIf="loadingEffect"
@@ -256,7 +253,6 @@
             <i class="bi bi-hdd-fill"></i>
             Guardar
           </button>
-
         </div>
       </div>
 
@@ -264,31 +260,26 @@
   </div>
 </div>
 
-
-<!------------------------------------->
-<!-- LANDSCAPE DESIGN - 100% CHECKED -->
-<!-- SIZE CLASSES --------------------->
-<!-- p-2 => PHONE --------------------->
-<!-- p-lg-2 => IPAD ------------------->
-<!-- p-xl-2 => DESKTOP 720p ----------->
-<!-- p-xxl-3 => DESKTOP 1080p --------->
+<!------------------------------>
+<!-- LANDSCAPE DESIGN CHECKED -->
 <div class="landscape-design">
-  <div class="container p-2 p-lg-2 p-xl-2 p-xxl-3">
+  <div class="container p-2 p-xxl-3">
+
+    <!-- FORM -->
     <form [formGroup]="newCustomerForm" (ngSubmit)="onSubmit(firebaseUser)">
 
       <!-- HEADER -->
-      <div class="card shadow rounded p-2 p-lg-2 p-xl-3 p-xxl-3 mb-2 mb-lg-2 mb-xl-2 mb-xxl-3">
+      <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
         <div class="row">
-
           <!-- TITLE -->
-          <div class="col-6 col-xl-6 d-flex justify-content-start">
+          <div class="col-6 col-lg-8 d-flex justify-content-start">
             <img class="me-3" ngSrc="./assets/images/modules/customers/customers.png" alt="Clientes" height="32"
                  width="32" priority="">
             <p class="fs-4 fw-bold m-0 text-uppercase">Nuevo Cliente</p>
           </div>
 
           <!-- BUTTONS -->
-          <div class="col-6 col-xl-6 d-flex justify-content-end">
+          <div class="col-6 col-lg-4 d-flex justify-content-end">
             <!-- BUTTON CANCEL -->
             <button
               type="reset"
@@ -319,10 +310,9 @@
 
       <!-- FORM -->
       <div class="row">
-
         <!-- DATA PROFILE -->
-        <div class="col-6 col-lg-6 col-xl-4 col-xxl-4">
-          <div class="card shadow rounded p-3 p-lg-3 p-xl-3 p-xxl-3">
+        <div class="col-6 col-xl-4">
+          <div class="card shadow rounded p-3">
             <p class="fs-5 fw-bold mb-1">Datos de Perfil</p>
             <hr class="text-muted mt-1">
 
@@ -439,8 +429,8 @@
         </div>
 
         <!-- UPLOAD PHOTOS -->
-        <div class="col-6 col-lg-6 col-xl-8 col-xxl-8">
-          <div class="card shadow rounded p-3 p-lg-3 p-xl-3 p-xxl-3">
+        <div class="col-6 col-xl-8">
+          <div class="card shadow rounded p-3">
             <p class="fs-5 fw-bold mb-1">Subir Fotos</p>
             <hr class="text-muted mt-1">
 
@@ -448,24 +438,24 @@
             <!-- PHOTO PROFILE -->
             <div class="row">
               <ng-container *ngIf="photo1_preview && photo1_preview !== ''; else defaultPreview1">
-                <div class="col-9 col-lg-9 col-xl-8">
+                <div class="col-9 col-xl-8">
                   <button type="button" class="btn btn-danger" (click)="deletePreview('PHOTO 1')">
                     <i class="bi bi-trash-fill"></i>
                     Borrar
                   </button>
                 </div>
-                <div class="col-3 col-lg-3 col-xl-4 text-end">
+                <div class="col-3 col-xl-4 text-end">
                   <img class="img-fluid" style="max-height: 128px" src="{{photo1_preview}}"
                        alt="{{photo1_file.name}}">
                 </div>
               </ng-container>
 
               <ng-template #defaultPreview1>
-                <div class="col-9 col-lg-9 col-xl-8">
+                <div class="col-9 col-xl-8">
                   <label for="photoInput1" class="form-label">PERFIL</label>
                   <input type="file" class="form-control" id="photoInput1" (change)="take_photo1($event)">
                 </div>
-                <div class="col-3 col-lg-3 col-xl-4 text-end">
+                <div class="col-3 col-xl-4 text-end">
                   <img class="img-fluid" src="./assets/images/profile-photo.png" alt="preview">
                 </div>
               </ng-template>
@@ -476,24 +466,24 @@
             <!-- PHOTO DNI -->
             <div class="row">
               <ng-container *ngIf="photo2_preview && photo2_preview !== ''; else defaultPreview2">
-                <div class="col-9 col-lg-9 col-xl-8">
+                <div class="col-9 col-xl-8">
                   <button type="button" class="btn btn-danger" (click)="deletePreview('PHOTO 2')">
                     <i class="bi bi-trash-fill"></i>
                     Borrar
                   </button>
                 </div>
-                <div class="col-3 col-lg-3 col-xl-4 text-end">
+                <div class="col-3 col-xl-4 text-end">
                   <img class="img-fluid" style="max-height: 128px" src="{{photo2_preview}}"
                        alt="{{photo2_file.name}}">
                 </div>
               </ng-container>
 
               <ng-template #defaultPreview2>
-                <div class="col-9 col-lg-9 col-xl-8">
+                <div class="col-9 col-xl-8">
                   <label for="photoInput2" class="form-label">DNI</label>
                   <input type="file" class="form-control" id="photoInput2" (change)="take_photo2($event)">
                 </div>
-                <div class="col-3 col-lg-3 col-xl-4 text-end">
+                <div class="col-3 col-xl-4 text-end">
                   <img class="img-fluid" src="./assets/images/dni-photo.png" alt="preview">
                 </div>
               </ng-template>
@@ -504,24 +494,24 @@
             <!-- PHOTO REDES -->
             <div class="row">
               <ng-container *ngIf="photo3_preview && photo3_preview !== ''; else defaultPreview3">
-                <div class="col-9 col-lg-9 col-xl-8">
+                <div class="col-9 col-xl-8">
                   <button type="button" class="btn btn-danger" (click)="deletePreview('PHOTO 3')">
                     <i class="bi bi-trash-fill"></i>
                     Borrar
                   </button>
                 </div>
-                <div class="col-3 col-lg-3 col-xl-4 text-end">
+                <div class="col-3 col-xl-4 text-end">
                   <img class="img-fluid" style="max-height: 128px" src="{{photo3_preview}}"
                        alt="{{photo3_file.name}}">
                 </div>
               </ng-container>
 
               <ng-template #defaultPreview3>
-                <div class="col-9 col-lg-9 col-xl-8">
+                <div class="col-9 col-xl-8">
                   <label for="photoInput3" class="form-label">REDES</label>
                   <input type="file" class="form-control" id="photoInput3" (change)="take_photo3($event)">
                 </div>
-                <div class="col-3 col-lg-3 col-xl-4 text-end">
+                <div class="col-3 col-xl-4 text-end">
                   <img class="img-fluid" src="./assets/images/social-photo.png" alt="preview">
                 </div>
               </ng-template>

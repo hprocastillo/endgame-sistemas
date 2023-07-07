@@ -1,1 +1,30 @@
-<p>settings works!</p>
+<!-- LOGGED -->
+<ng-container *ngIf="authService.user$ | async as firebaseUser; else noLogged">
+
+  <!-- LIST SETTINGS - TEMPLATE -->
+  <app-settings-list
+    *ngIf="template === 'LIST'"
+    (outTemplate)="getTemplate($event)"
+  ></app-settings-list>
+
+
+  <!-- SETTINGS - PRODUCTS CATEGORIES -->
+  <app-settings-products-categories
+    *ngIf="template === 'PRODUCTS-CATEGORIES'"
+    [firebaseUser]="firebaseUser"
+    (outTemplate)="getTemplate($event)"
+  ></app-settings-products-categories>
+
+
+  <!-- SETTINGS - PRODUCTS BRANDS -->
+  <app-settings-products-brands
+    *ngIf="template === 'PRODUCTS-BRANDS'"
+    [firebaseUser]="firebaseUser"
+    (outTemplate)="getTemplate($event)"
+  ></app-settings-products-brands>
+
+
+</ng-container>
+
+<!-- NO LOGGED -->
+<ng-template #noLogged></ng-template>

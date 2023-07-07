@@ -23,7 +23,7 @@ export class CategoryService {
   }
 
   getCategories() {
-    const q = query(this.categoriesCollection, orderBy('createdAt', 'desc'));
+    const q = query(this.categoriesCollection, orderBy('name', 'asc'));
     return collectionData(q, {idField: 'id'}) as Observable<Category[]>;
   }
 

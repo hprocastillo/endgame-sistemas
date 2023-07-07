@@ -11,11 +11,14 @@ export class CustomersComponent {
   /** VARIABLES **/
   template: string = 'LIST';
   customerSelected = {} as Customer;
+
   constructor(public authService: AuthService) {
   }
+
   getTemplate(template: string) {
     this.template = template;
   }
+
   getCustomerSelected(customer: Customer) {
     this.template = 'VIEW';
     this.customerSelected = customer;

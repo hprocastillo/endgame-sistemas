@@ -1,1 +1,366 @@
-<p>products-edit works!</p>
+<!----------------------------->
+<!-- PORTRAIT DESIGN CHECKED -->
+<div class="portrait-design">
+  <div class="container p-3">
+
+    <!-- HEADER -->
+    <div class="row">
+      <div class="col-10 col-md-11">
+        <p class="fs-4 fw-bold text-uppercase">Editar Producto</p>
+      </div>
+      <div class="col-2 col-md-1">
+        <img class="img-fluid" src="./assets/images/modules/products/products.png" alt="Editar Producto">
+      </div>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="form-floating mb-3">
+      <select
+        class="form-select"
+        id="category-PORT"
+        [(ngModel)]="product.category"
+        required>
+        <option selected>Seleccionar</option>
+        <option value="BEBIDAS">Bebidas y Gaseosas</option>
+        <option value="SNACKS">Snacks y Pickeos</option>
+        <option value="GALLETAS">Galletas</option>
+      </select>
+      <label for="category-PORT">Seleccionar Categoría</label>
+    </div>
+
+    <!-- BRAND -->
+    <div class="form-floating mb-3">
+      <select
+        class="form-select"
+        id="brand-PORT"
+        [(ngModel)]="product.brand"
+        required>
+        <option selected>Seleccionar</option>
+        <option value="COCA COLA">Coca cola</option>
+        <option value="PEPSI">Pepsi</option>
+        <option value="INKA KOLA">Inka Kola</option>
+        <option value="RELLENITA">Rellenita</option>
+        <option value="SUBLIME">Sublime</option>
+        <option value="RITZ">Ritz</option>
+        <option value="LAYS">LAYS</option>
+      </select>
+      <label for="brand-PORT">Seleccionar Marca</label>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="form-floating mb-3">
+    <textarea
+      class="form-control"
+      placeholder="Descripción"
+      id="description-PORT"
+      style="height: 100px"
+      [(ngModel)]="product.description"
+      required></textarea>
+      <label for="description-PORT">Descripción del producto</label>
+    </div>
+
+    <!-- STOCK AND PRICE -->
+    <div class="row mb-3">
+      <!-- STOCK -->
+      <div class="col-6">
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="stock-PORT"
+            placeholder="Stock unidades"
+            [(ngModel)]="product.stock"
+            required>
+          <label for="stock-PORT">Stock unidades</label>
+        </div>
+      </div>
+      <!-- PRICE -->
+      <div class="col-6">
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="price-PORT"
+            placeholder="Precio: S/."
+            [(ngModel)]="product.price"
+            required>
+          <label for="price-PORT">Precio: S/.</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- BARCODE -->
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="barcode-PORT"
+        placeholder="Código de barras"
+        [(ngModel)]="product.barcode"
+        required>
+      <label for="barcode-PORT">Código de barras</label>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="row margin-bottom-page">
+      <div class="col-12 text-center pt-3">
+        <!-- IMAGE PREVIEW - CAMERA -->
+        <ng-container *ngIf="photo_preview && photo_preview !== ''; else imageDBPORT">
+          <p class="fs-5">VISTA PREVIA</p>
+
+          <div class="row">
+            <div class="col-6 offset-3">
+              <div class="container-camera mb-3">
+                <input type="file" (change)="take_photo($event)" accept="image/*;capture=camera">
+                <img class="img-fluid" src="{{photo_preview}}" alt="{{photo_file.name}}">
+              </div>
+              <!-- BUTTON DELETE -->
+              <button
+                (click)="deletePreview()"
+                type="button"
+                class="btn btn-danger">
+                <i class="bi bi-trash-fill"></i>
+                Borrar
+              </button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #imageDBPORT>
+          <p class="fs-5 mb-0">FOTO DE PRODUCTO</p>
+
+          <div class="row">
+            <div class="col-6 offset-3">
+              <div class="container-camera">
+                <input type="file" (change)="take_photo($event)" accept="image/*;capture=camera">
+                <img class="img-fluid" src="{{product.photoURL}}" alt="{{product.description}}">
+              </div>
+            </div>
+          </div>
+          <p class="small text-muted">(Haga click en la foto para cambiarla).</p>
+        </ng-template>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="row fixed-bottom bg-white p-3">
+      <div class="col-6">
+        <!-- BUTTON CANCEL -->
+        <button
+          type="reset"
+          class="btn btn-danger w-100"
+          (click)="getTemplate('VIEW')">
+          <i class="bi bi-x-circle-fill me-2"></i>
+          Cancelar
+        </button>
+      </div>
+      <div class="col-6">
+        <!-- BUTTON SAVE /W LOADING EFFECT -->
+        <button
+          *ngIf="loadingEffect"
+          type="button"
+          class="btn btn-success w-100" disabled>
+          <span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+          Guardando...
+        </button>
+        <!-- BUTTON SAVE -->
+        <button
+          *ngIf="!loadingEffect"
+          (click)="onSubmit(product, firebaseUser)"
+          type="submit"
+          class="btn btn-success w-100">
+          <i class="bi bi-hdd-fill me-2"></i>
+          Guardar
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!------------------------------>
+<!-- LANDSCAPE DESIGN CHECKED -->
+<div class="landscape-design">
+  <div class="container p-2 p-xxl-3">
+
+    <!-- HEADER -->
+    <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
+      <div class="row">
+
+        <!-- TITLE -->
+        <div class="col-6 col-lg-8 d-flex justify-content-start">
+          <img class="me-3" ngSrc="./assets/images/modules/products/products.png" alt="Nuevo Producto" height="32"
+               width="32" priority="">
+          <p class="fs-4 fw-bold m-0 text-uppercase">Editar Producto</p>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="col-6 col-lg-4 d-flex justify-content-end">
+          <!-- BUTTON CANCEL -->
+          <button
+            type="reset"
+            class="btn btn-danger me-2"
+            (click)="getTemplate('VIEW')">
+            <i class="bi bi-x-circle-fill"></i>
+            Cancelar
+          </button>
+          <!-- BUTTON SAVE /W LOADING EFFECT -->
+          <button
+            *ngIf="loadingEffect"
+            type="button"
+            class="btn btn-success" disabled>
+            <span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+            Guardando...
+          </button>
+          <!-- BUTTON SAVE -->
+          <button
+            *ngIf="!loadingEffect"
+            type="submit"
+            class="btn btn-success">
+            <i class="bi bi-hdd-fill"></i>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="row">
+
+      <!-- DATA PRODUCT -->
+      <div class="col-6 col-xl-4">
+        <div class="card shadow rounded p-3">
+          <p class="fs-5 fw-bold mb-1">Datos del Producto</p>
+          <hr class="text-muted mt-1">
+
+          <!-- CATEGORY -->
+          <div class="form-floating mb-3">
+            <select
+              class="form-select"
+              id="category-LAND"
+              [(ngModel)]="product.category"
+              required>
+              <option selected>Seleccionar</option>
+              <option value="BEBIDAS">Bebidas y Gaseosas</option>
+              <option value="SNACKS">Snacks y Pickeos</option>
+              <option value="GALLETAS">Galletas</option>
+            </select>
+            <label for="category-LAND">Seleccionar Categoría</label>
+          </div>
+
+          <!-- BRAND -->
+          <div class="form-floating mb-3">
+            <select
+              class="form-select"
+              id="brand-LAND"
+              [(ngModel)]="product.brand"
+              required>
+              <option selected>Seleccionar</option>
+              <option value="COCA COLA">Coca cola</option>
+              <option value="PEPSI">Pepsi</option>
+              <option value="INKA KOLA">Inka Kola</option>
+              <option value="RELLENITA">Rellenita</option>
+              <option value="SUBLIME">Sublime</option>
+              <option value="RITZ">Ritz</option>
+              <option value="LAYS">LAYS</option>
+            </select>
+            <label for="brand-LAND">Seleccionar Marca</label>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <div class="form-floating mb-3">
+              <textarea
+                class="form-control"
+                placeholder="Descripción"
+                id="description-LAND"
+                style="height: 80px"
+                [(ngModel)]="product.description"
+                required></textarea>
+            <label for="description-LAND">Descripción del producto</label>
+          </div>
+
+          <!-- STOCK AND PRICE -->
+          <div class="row mb-3">
+            <!-- STOCK -->
+            <div class="col-6">
+              <div class="form-floating">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="stock-LAND"
+                  placeholder="Stock unidades"
+                  [(ngModel)]="product.stock"
+                  required>
+                <label for="stock-LAND">Stock unidades</label>
+              </div>
+            </div>
+            <!-- PRICE -->
+            <div class="col-6">
+              <div class="form-floating">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price-LAND"
+                  placeholder="Precio: S/."
+                  [(ngModel)]="product.price"
+                  required>
+                <label for="price-LAND">Precio: S/.</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- BARCODE -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="barcode-LAND"
+              placeholder="Código de barras"
+              [(ngModel)]="product.barcode"
+              required>
+            <label for="barcode-LAND">Código de barras</label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- UPLOAD PHOTO -->
+      <div class="col-6 col-xl-8">
+        <div class="card shadow rounded p-3">
+          <p class="fs-5 fw-bold mb-1">Editar Foto</p>
+          <hr class="text-muted mt-1">
+
+          <div class="row">
+            <ng-container *ngIf="photo_preview && photo_preview !== ''; else imageDBLAND">
+              <div class="col-9 col-xl-8">
+
+                <!-- BUTTON DELETE PREVIEW -->
+                <button type="button" class="btn btn-danger" (click)="deletePreview()">
+                  <i class="bi bi-trash-fill"></i>
+                  Borrar
+                </button>
+
+              </div>
+              <div class="col-3 col-xl-4 text-end">
+                <img class="img-fluid" style="max-height: 200px" src="{{photo_preview}}"
+                     alt="{{photo_file.name}}">
+              </div>
+            </ng-container>
+
+            <ng-template #imageDBLAND>
+              <div class="col-9 col-xl-8">
+                <input type="file" class="form-control" (change)="take_photo($event)">
+              </div>
+              <div class="col-3 col-xl-4 text-end">
+                <img class="img-fluid" src="{{product.photoURL}}" alt="{{product.description}}">
+              </div>
+            </ng-template>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

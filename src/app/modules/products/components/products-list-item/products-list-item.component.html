@@ -1,1 +1,47 @@
-<p>products-list-item works!</p>
+<div class="card shadow rounded p-3 border-0 cursor-pointer">
+  <div class="row">
+
+    <!-- PHOTO -->
+    <div class="col-3">
+      <img class="img-fluid" src="{{product.photoURL}}" alt="{{product.description}}">
+    </div>
+
+    <!-- DATA -->
+    <div class="col-9">
+      <ul class="list-group list-group-flush">
+
+        <!-- BRAND -->
+        <li class="list-group-item border-0 p-0">
+          <p class="text-muted m-0">{{product.brand}}</p>
+        </li>
+
+        <!-- DESCRIPTION -->
+        <li class="list-group-item border-0 p-0">
+          <p class="fs-5 fw-bold m-0">{{product.description}}</p>
+        </li>
+
+        <!-- PRICE -->
+        <li class="list-group-item border-0 p-0">
+          <p class="text-muted m-0">Precio: &nbsp;<span class="fw-bold">S/. {{product.price}}</span></p>
+        </li>
+
+        <!-- STOCK -->
+        <li class="list-group-item border-0 p-0">
+          <!-- NO STOCK -->
+          <p class="text-muted m-0" *ngIf="product.stock === 0">
+            Stock: &nbsp;<span class="text-danger">Sin stock</span>
+          </p>
+          <!-- STOCK === 1 -->
+          <p class="text-muted m-0" *ngIf="product.stock === 1">
+            Stock: &nbsp;<span class="fw-bold">1 unidad</span>
+          </p>
+          <!-- STOCK > 1 -->
+          <p class="text-muted m-0" *ngIf="product.stock > 1">
+            Stock: &nbsp;<span class="fw-bold">{{product.stock}} unidades</span>
+          </p>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

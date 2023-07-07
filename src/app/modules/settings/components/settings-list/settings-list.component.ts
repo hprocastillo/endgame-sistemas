@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-settings-list',
@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./settings-list.component.scss']
 })
 export class SettingsListComponent {
+  @Output() outTemplate = new EventEmitter<string>();
 
+  constructor() {
+  }
+
+  getTemplate(template: string) {
+    this.outTemplate.emit(template);
+  }
 }

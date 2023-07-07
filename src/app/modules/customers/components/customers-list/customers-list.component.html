@@ -1,15 +1,14 @@
-<!------------------------------------>
-<!-- PORTRAIT DESIGN - 100% CHECKED -->
+<!----------------------------->
+<!-- PORTRAIT DESIGN CHECKED -->
 <div class="portrait-design">
   <div class="container p-3">
 
     <!-- HEADER -->
     <div class="row">
-      <div class="col-10">
-        <p class="fs-3 fw-bold text-uppercase">Clientes</p>
+      <div class="col-10 col-md-11">
+        <p class="fs-4 fw-bold text-uppercase">Clientes</p>
       </div>
-
-      <div class="col-2">
+      <div class="col-2 col-md-1">
         <img class="img-fluid" src="./assets/images/modules/customers/customers.png" alt="Clientes">
       </div>
     </div>
@@ -43,15 +42,14 @@
       </div>
     </div>
 
-    <!-- FOOTER - BUTTONS -->
+    <!-- FOOTER -->
     <div class="row fixed-bottom bg-white p-3">
       <div class="col-12 d-flex justify-content-between">
         <!-- BUTTON BACK -->
         <button
           [routerLink]="'/home'"
           type="button"
-          class="btn btn-primary rounded-circle"
-        >
+          class="btn btn-primary rounded-circle">
           <i class="bi bi-arrow-90deg-left fs-3"></i>
         </button>
 
@@ -59,8 +57,7 @@
         <button
           (click)="getTemplate('NEW')"
           type="button"
-          class="btn btn-primary rounded-circle"
-        >
+          class="btn btn-primary rounded-circle">
           <i class="bi bi-plus-lg fs-3"></i>
         </button>
       </div>
@@ -70,28 +67,24 @@
 </div>
 
 
-<!------------------------------------->
-<!-- LANDSCAPE DESIGN - 100% CHECKED -->
-<!-- SIZE CLASSES --------------------->
-<!-- p-2 => PHONE --------------------->
-<!-- p-lg-2 => IPAD ------------------->
-<!-- p-xl-2 => DESKTOP 720p ----------->
-<!-- p-xxl-3 => DESKTOP 1080p --------->
+<!------------------------------>
+<!-- LANDSCAPE DESIGN CHECKED -->
 <div class="landscape-design">
-  <div class="container p-2 p-lg-2 p-xl-2 p-xxl-3">
+  <div class="container p-2 p-xxl-3">
 
     <!-- HEADER -->
-    <div class="card shadow rounded p-2 p-lg-2 p-xl-3 p-xxl-3 mb-2 mb-lg-2 mb-xl-2 mb-xxl-3">
+    <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
       <div class="row">
+
         <!-- TITLE -->
-        <div class="col-6 col-xl-6 d-flex justify-content-start">
+        <div class="col-6 col-lg-8 d-flex justify-content-start">
           <img class="me-3" ngSrc="./assets/images/modules/customers/customers.png" alt="Clientes" height="32"
                width="32" priority="">
           <p class="fs-4 fw-bold m-0 text-uppercase">Clientes</p>
         </div>
 
         <!-- BUTTONS -->
-        <div class="col-6 col-xl-6 d-flex justify-content-end">
+        <div class="col-6 col-lg-4 d-flex justify-content-end">
           <!-- BUTTON BACK -->
           <button
             [routerLink]="'/home'"
@@ -113,11 +106,11 @@
     </div>
 
     <!-- TABLE CUSTOMERS -->
-    <div class="card shadow rounded p-2 p-lg-2 p-xl-2 p-xxl-3">
+    <div class="card shadow rounded p-2 p-xxl-3">
 
       <!-- SEARCH -->
       <div class="row">
-        <div class="col-xl-12">
+        <div class="col-12">
           <div class="input-group">
             <input
               type="text"
@@ -132,7 +125,7 @@
 
       <!-- TABLE  -->
       <div class="row">
-        <div class="col-xl-12">
+        <div class="col-12">
           <div class="table-responsive mb-3">
             <table class="table table-striped">
               <thead>

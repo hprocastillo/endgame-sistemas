@@ -8,7 +8,6 @@
     (outTemplate)="getTemplate($event)"
   ></app-customers-list>
 
-
   <!-- NEW CUSTOMER - TEMPLATE -->
   <app-customers-new
     *ngIf="template === 'NEW'"
@@ -16,14 +15,12 @@
     (outTemplate)="getTemplate($event)"
   ></app-customers-new>
 
-
   <!-- VIEW CUSTOMER - TEMPLATE -->
   <app-customers-view
     *ngIf="template === 'VIEW'"
     [customer]="customerSelected"
     (outTemplate)="getTemplate($event)"
   ></app-customers-view>
-
 
   <!-- EDIT CUSTOMER - TEMPLATE -->
   <app-customers-edit

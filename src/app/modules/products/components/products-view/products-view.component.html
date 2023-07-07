@@ -1,1 +1,297 @@
-<p>products-view works!</p>
+<!----------------------------->
+<!-- PORTRAIT DESIGN CHECKED -->
+<div class="portrait-design">
+  <div class="container p-3">
+
+    <!-- BRAND -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="fs-3 fw-bold text-uppercase">{{product.brand}}</p>
+      </div>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <img class="img-fluid w-50"
+             (click)="openModalPhoto(modalPhoto, product.photoURL)"
+             src="{{product.photoURL}}"
+             alt="{{product.description}}"
+        >
+      </div>
+    </div>
+
+    <!-- SEPARATOR -->
+    <div class="row">
+      <div class="col-12 text-center small text-muted">
+        <p>(Click en la imagen para agrandar)</p>
+        <hr>
+      </div>
+    </div>
+
+    <!-- DATA -->
+    <div class="row margin-bottom-page">
+      <div class="col-12">
+        <ul class="list-group list-group-flush">
+
+          <!-- CATEGORY AND DESCRIPTION -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- CATEGORY -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Categoria:</p>
+                <p class="fw-bold">{{product.category}}</p>
+              </div>
+              <!-- DESCRIPTION -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Descripción:</p>
+                <p class="fw-bold">{{product.description}}</p>
+              </div>
+            </div>
+          </li>
+
+          <!-- PRICE AND STOCK -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- PRICE -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Precio:</p>
+                <p class="fw-bold">S/. &nbsp; {{product.price}}</p>
+              </div>
+              <!-- STOCK -->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Stock:</p>
+                <p class="text-danger" *ngIf="product.stock === 0">Sin stock.</p>
+                <p class="fw-bold" *ngIf="product.stock === 1">{{product.stock}} &nbsp; Unidad.</p>
+                <p class="fw-bold" *ngIf="product.stock > 1">{{product.stock}} &nbsp; Unidades.</p>
+              </div>
+            </div>
+          </li>
+
+          <!-- CREATED AND UPDATED -->
+          <li class="list-group-item border-0">
+            <div class="row">
+              <!-- CREATED AT-->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Registrado:</p>
+                <p class="fw-bold">{{product.createdAt.toMillis() | date:'MMMM d, y'}}</p>
+              </div>
+              <!-- UPDATED AT-->
+              <div class="col-6">
+                <p class="small text-muted mb-0">Última actualización:</p>
+                <p class="fw-bold">{{product.updatedAt.toMillis() | date:'MMMM d, y'}}</p>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="row fixed-bottom bg-white p-3">
+      <div class="col-12 d-flex justify-content-between">
+
+        <!-- BUTTON BACK -->
+        <button
+          type="button"
+          class="btn btn-primary rounded-circle"
+          (click)="getTemplate('LIST')"
+        >
+          <i class="bi bi-arrow-90deg-left fs-3"></i>
+        </button>
+
+        <!-- BUTTON DELETE -->
+        <button
+          type="button"
+          class="btn btn-danger rounded-circle"
+          (click)="openModalDelete(modalDelete)"
+        >
+          <i class="bi bi-trash-fill fs-3"></i>
+        </button>
+
+        <!-- BUTTON EDIT -->
+        <button
+          type="button"
+          class="btn btn-primary rounded-circle"
+          (click)="getTemplate('EDIT')"
+        >
+          <i class="bi bi-pencil-square fs-3"></i>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!------------------------------>
+<!-- LANDSCAPE DESIGN CHECKED -->
+<div class="landscape-design">
+  <div class="container p-2 p-xxl-3">
+
+    <!-- HEADER -->
+    <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
+      <div class="row">
+
+        <!-- TITLE -->
+        <div class="col-6 col-xl-8">
+          <p class="fs-4 fw-bold m-0">{{product.description}}</p>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="col-6 col-xl-4 d-flex justify-content-end">
+          <!-- BUTTON BACK -->
+          <button
+            (click)="getTemplate('LIST')"
+            type="button"
+            class="btn btn-secondary me-2">
+            <i class="bi bi-arrow-left"></i>
+            Atrás
+          </button>
+
+          <!-- BUTTON DELETE -->
+          <button
+            (click)="openModalDelete(modalDelete)"
+            type="button"
+            class="btn btn-danger me-2">
+            <i class="bi bi-trash-fill"></i>
+            Borrar
+          </button>
+
+          <!-- BUTTON EDIT -->
+          <button
+            (click)="getTemplate('EDIT')"
+            type="button"
+            class="btn btn-primary">
+            <i class="bi bi-pencil-square"></i>
+            Editar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT (DATA - PHOTOS) -->
+    <div class="row">
+
+      <!-- PHOTOS -->
+      <div class="col-4">
+        <div class="card shadow rounded p-3 text-muted text-center">
+          <img
+            class="img-fluid"
+            style="max-height: 300px"
+            src="{{product.photoURL}}"
+            alt="{{product.description}}"
+            (click)="openModalPhoto(modalPhoto, product.photoURL)">
+          <hr>
+          <p class="small">(Click en las imagen para agrandar)</p>
+        </div>
+      </div>
+
+      <!-- DATA -->
+      <div class="col-8">
+        <div class="card shadow rounded p-3">
+          <ul class="list-group list-group-flush">
+
+            <!-- CATEGORY AND BRAND -->
+            <li class="list-group-item border-0">
+              <div class="row">
+                <!-- PHONE -->
+                <div class="col-6">
+                  <p class="text-muted mb-0">Categoria:</p>
+                  <p class="fw-bold">{{product.category}}</p>
+                </div>
+                <!-- DNI -->
+                <div class="col-6">
+                  <p class="text-muted mb-0">Marca:</p>
+                  <p class="fw-bold">{{product.brand}}</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- PRICE AND STOCK -->
+            <li class="list-group-item border-0">
+              <div class="row">
+                <!-- PRICE -->
+                <div class="col-6">
+                  <p class="text-muted mb-0">Precio:</p>
+                  <p class="fw-bold">S/. {{product.price}}</p>
+                </div>
+                <!-- STOCK -->
+                <div class="col-6">
+                  <p class="text-muted mb-0">Stock:</p>
+                  <p class="fw-bold" *ngIf="product.stock === 0">Sin stock.</p>
+                  <p class="fw-bold" *ngIf="product.stock === 1">{{product.stock}} &nbsp;Unidad.</p>
+                  <p class="fw-bold" *ngIf="product.stock > 1">{{product.stock}} &nbsp;Unidades.</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- BARCODE -->
+            <li class="list-group-item border-0">
+              <p class="text-muted mb-0">Código de barras:</p>
+              <p class="fw-bold">{{product.barcode}}</p>
+            </li>
+
+            <!-- CREATED AND UPDATED -->
+            <li class="list-group-item border-0">
+              <div class="row">
+                <!-- CREATED -->
+                <div class="col-6">
+                  <p class="text-muted mb-0">Registrado:</p>
+                  <p class="fw-bold">{{product.createdAt.toMillis() | date:'MMMM d, y'}}</p>
+                </div>
+
+                <!-- UPDATED -->
+                <div class="col-6">
+                  <p class="text-muted mb-0">Última Actualización:</p>
+                  <p class="fw-bold">{{product.updatedAt.toMillis() | date:'MMMM d, y'}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!------------- MODALS ------------->
+<!--------- MODAL DELETE ----------->
+<ng-template #modalDelete let-modal>
+  <div class="modal-body text-center">
+    <p class="lead">¿Desea eliminar el producto?</p>
+    <!-- BUTTON CANCEL -->
+    <button
+      type="button"
+      class="btn btn-danger me-2"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <i class="bi bi-x-circle-fill me-1"></i>
+      Cancelar
+    </button>
+    <!-- BUTTON DELETE -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="deleteProduct(product)"
+    >
+      <i class="bi bi-trash-fill me-1"></i>
+      Aceptar
+    </button>
+  </div>
+</ng-template>
+
+
+<!----------- MODAL PHOTO ---------->
+<ng-template #modalPhoto let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body text-center">
+    <img class="img-fluid" src="{{imageFullSize}}" alt="{{product.description}}">
+  </div>
+</ng-template>

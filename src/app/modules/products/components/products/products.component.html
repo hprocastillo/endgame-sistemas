@@ -9,7 +9,7 @@
   ></app-products-list>
 
 
-  <!-- NEW PRODUCT FORM - TEMPLATE -->
+  <!-- NEW PRODUCT - TEMPLATE -->
   <app-products-new
     *ngIf="template === 'NEW'"
     [firebaseUser]="firebaseUser"
@@ -32,7 +32,6 @@
     [product]="productSelected"
     (outTemplate)="getTemplate($event)"
   ></app-products-edit>
-
 
 </ng-container>
 
