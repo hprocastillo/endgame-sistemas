@@ -4,7 +4,7 @@
   <!-- LIST PRODUCTS - TEMPLATE -->
   <app-products-list
     *ngIf="template === 'LIST'"
-    (productSelected)="getProductSelected($event)"
+    (productSelected)="getSelectedProduct($event)"
     (outTemplate)="getTemplate($event)"
   ></app-products-list>
 

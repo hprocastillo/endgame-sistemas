@@ -10,7 +10,7 @@ import {Product} from "../../interfaces/product";
 export class ProductsComponent {
   /** VARIABLES **/
   template: string = 'LIST';
-  productSelected = {} as Product;
+  productSelected: Product = {} as Product;
 
   constructor(public authService: AuthService) {
   }
@@ -19,7 +19,7 @@ export class ProductsComponent {
     this.template = template;
   }
 
-  getProductSelected(product: Product) {
+  getSelectedProduct(product: Product) {
     this.template = 'VIEW';
     this.productSelected = product;
   }

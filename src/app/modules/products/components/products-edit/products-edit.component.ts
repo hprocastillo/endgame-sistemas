@@ -1,16 +1,21 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {getDownloadURL, ref, Storage, uploadBytes} from "@angular/fire/storage";
 import {ProductService} from "../../services/product.service";
 import {User} from "@angular/fire/auth";
 import {Product} from "../../interfaces/product";
 import {Timestamp} from "firebase/firestore";
+import {BrandService} from "../../services/brand.service";
+import {CategoryService} from "../../services/category.service";
+import {Subject, takeUntil} from "rxjs";
+import {Category} from "../../interfaces/category";
+import {Brand} from "../../interfaces/brand";
 
 @Component({
   selector: 'app-products-edit',
   templateUrl: './products-edit.component.html',
   styleUrls: ['./products-edit.component.scss']
 })
-export class ProductsEditComponent {
+export class ProductsEditComponent implements OnInit, OnDestroy {
   @Input() product = {} as Product;
   @Input() firebaseUser = {} as User;
   @Output() outTemplate = new EventEmitter<string>();
@@ -20,7 +25,30 @@ export class ProductsEditComponent {
   photo_file: string | any;
   photo_preview: string = '';
 
-  constructor(private productService: ProductService, private storage: Storage) {
+  private unsubscribe$ = new Subject<boolean>();
+  listCategories: Category[] = [];
+  listBrands: Brand[] = [];
+
+  constructor(
+    private brandService: BrandService,
+    private categoryService: CategoryService,
+    private productService: ProductService,
+    private storage: Storage) {
+  }
+
+  ngOnInit() {
+    // get categories list
+    this.categoryService.getCategories()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => {
+        this.listCategories = res;
+      });
+    // get brands list
+    this.brandService.getBrands()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => {
+        this.listBrands = res;
+      });
   }
 
   getTemplate(template: string) {
@@ -62,5 +90,10 @@ export class ProductsEditComponent {
       await this.productService.updateProduct(editProduct);
       this.outTemplate.emit('VIEW');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 }

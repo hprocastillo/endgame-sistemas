@@ -23,7 +23,7 @@ export class BrandService {
   }
 
   getBrands() {
-    const q = query(this.brandsCollection, orderBy('createdAt', 'desc'));
+    const q = query(this.brandsCollection, orderBy('name', 'asc'));
     return collectionData(q, {idField: 'id'}) as Observable<Brand[]>;
   }
 

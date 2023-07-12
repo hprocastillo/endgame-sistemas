@@ -12,12 +12,24 @@ export class LoginComponent {
 
   /** VARIABLES **/
   formLogin: FormGroup;
+  typeInput: string = "password";
+  password: boolean = false;
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+  }
+
+  showPassword() {
+    if (this.password) {
+      this.password = false;
+      this.typeInput = "password";
+    } else {
+      this.password = true;
+      this.typeInput = "text";
+    }
   }
 
   async onSubmit() {

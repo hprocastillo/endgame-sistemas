@@ -5,6 +5,7 @@ import {Subject, takeUntil} from "rxjs";
 import {Timestamp} from "firebase/firestore";
 import {Brand} from "../../../products/interfaces/brand";
 import {BrandService} from "../../../products/services/brand.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-settings-products-brands',
@@ -12,15 +13,22 @@ import {BrandService} from "../../../products/services/brand.service";
   styleUrls: ['./settings-products-brands.component.scss']
 })
 export class SettingsProductsBrandsComponent implements OnInit, OnDestroy {
-@Input() firebaseUser = {} as User;
-@Output() outTemplate = new EventEmitter<string>();
+  @Input() firebaseUser = {} as User;
+  @Output() outTemplate = new EventEmitter<string>();
 
   /** VARIABLES **/
   newBrandForm: FormGroup;
   private unsubscribe$ = new Subject<boolean>();
   listBrands: Brand[] = [];
+  page: number = 1;
+  pageSize: number = 5;
+  searchText: string = '';
 
-  constructor(private brandService: BrandService, private fb: FormBuilder) {
+  constructor(
+    private modalService: NgbModal,
+    private brandService: BrandService,
+    private fb: FormBuilder) {
+
     this.newBrandForm = this.fb.group({
       name: ['', [Validators.required]]
     });
@@ -38,9 +46,34 @@ export class SettingsProductsBrandsComponent implements OnInit, OnDestroy {
     this.outTemplate.emit(template);
   }
 
-  async deleteBrand(brand:Brand) {
+  openModalDelete(modalDelete: any) {
+    this.modalService.open(modalDelete, {centered: true, backdrop: "static"});
+  }
+
+  openModalEdit(modalEdit: any) {
+    this.modalService.open(modalEdit, {centered: true, backdrop: "static"});
+  }
+
+  openModalNew(modalNew: any) {
+    this.modalService.open(modalNew, {centered: true, backdrop: "static"});
+  }
+
+  async updateBrand(brand: Brand) {
+    try {
+      brand.name = brand.name.toUpperCase();
+      await this.brandService.updateBrand(brand);
+      this.modalService.dismissAll();
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async deleteBrand(brand: Brand) {
     try {
       await this.brandService.deleteBrand(brand);
+      this.modalService.dismissAll();
+
     } catch (e) {
       console.log(e);
     }
@@ -48,6 +81,7 @@ export class SettingsProductsBrandsComponent implements OnInit, OnDestroy {
 
   async onSubmit(firebaseUser: User) {
     let newBrand: Brand;
+
     if (this.newBrandForm.valid) {
       newBrand = this.newBrandForm.value;
       newBrand.name = newBrand.name.toUpperCase();
@@ -59,11 +93,16 @@ export class SettingsProductsBrandsComponent implements OnInit, OnDestroy {
       try {
         await this.brandService.addBrand(newBrand);
         this.newBrandForm.reset();
+        this.modalService.dismissAll();
+
       } catch (e) {
         console.log(e);
       }
+
     } else {
+      this.modalService.dismissAll();
       console.log("error");
+
     }
   }
 

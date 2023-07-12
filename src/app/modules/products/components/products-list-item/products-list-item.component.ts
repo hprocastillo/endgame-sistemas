@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from "../../interfaces/product";
 
 @Component({
@@ -8,4 +8,14 @@ import {Product} from "../../interfaces/product";
 })
 export class ProductsListItemComponent {
   @Input() product = {} as Product;
+  @Output() productToDelete = new EventEmitter<Product>();
+  @Output() productToEdit = new EventEmitter<Product>();
+
+  sendToEdit(product: Product) {
+    this.productToEdit.emit(product);
+  }
+
+  sendToDelete(product: Product) {
+    this.productToDelete.emit(product);
+  }
 }

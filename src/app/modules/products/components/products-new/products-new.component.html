@@ -1,5 +1,5 @@
-<!------------------------------------>
-<!-- PORTRAIT DESIGN - 100% CHECKED -->
+<!--------------------->
+<!-- PORTRAIT DESIGN -->
 <div class="portrait-design">
   <div class="container p-3">
 
@@ -171,59 +171,64 @@
 </div>
 
 
-<!------------------------------>
-<!-- LANDSCAPE DESIGN CHECKED -->
+<!---------------------->
+<!-- LANDSCAPE DESIGN -->
 <div class="landscape-design">
-  <div class="container p-2 p-xxl-3">
+  <div class="container p-2">
+
     <form [formGroup]="newProductForm" (ngSubmit)="onSubmit(firebaseUser)">
 
-      <!-- HEADER -->
-      <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
-        <div class="row">
+      <!-- HEADER AND TOOLBAR -->
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card shadow rounded border-0 p-2">
+            <div class="row">
 
-          <!-- TITLE -->
-          <div class="col-6 col-lg-8 d-flex justify-content-start">
-            <img class="me-3" ngSrc="./assets/images/modules/products/products.png" alt="Nuevo Producto" height="32"
-                 width="32" priority="">
-            <p class="fs-4 fw-bold m-0 text-uppercase">Nuevo Producto</p>
-          </div>
+              <!-- HEADER -->
+              <div class="col-6 d-flex justify-content-start">
+                <img class="ms-2 me-2" ngSrc="./assets/images/modules/products/products.png" alt="Nuevo Producto"
+                     height="32"
+                     width="32" priority="">
+                <p class="fs-5 fw-bold m-0 text-uppercase">NUEVO PRODUCTO</p>
+              </div>
 
-          <!-- BUTTONS -->
-          <div class="col-6 col-lg-4 d-flex justify-content-end">
-            <!-- BUTTON CANCEL -->
-            <button
-              type="reset"
-              class="btn btn-danger me-2"
-              (click)="getTemplate('LIST')">
-              <i class="bi bi-x-circle-fill"></i>
-              Cancelar
-            </button>
-            <!-- BUTTON SAVE /W LOADING EFFECT -->
-            <button
-              *ngIf="loadingEffect"
-              type="button"
-              class="btn btn-success" disabled>
-              <span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-              Guardando...
-            </button>
-            <!-- BUTTON SAVE -->
-            <button
-              *ngIf="!loadingEffect"
-              type="submit"
-              class="btn btn-success">
-              <i class="bi bi-hdd-fill"></i>
-              Guardar
-            </button>
+              <!-- TOOLBAR -->
+              <div class="col-6 d-flex justify-content-end">
+                <!-- BUTTON CANCEL -->
+                <button
+                  type="reset"
+                  class="btn btn-danger me-2"
+                  (click)="getTemplate('LIST')">
+                  <i class="bi bi-x-circle-fill"></i>
+                  Cancelar
+                </button>
+                <!-- BUTTON SAVE /W LOADING EFFECT -->
+                <button
+                  *ngIf="loadingEffect"
+                  type="button"
+                  class="btn btn-success" disabled>
+                  <span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+                  Guardando...
+                </button>
+                <!-- BUTTON SAVE -->
+                <button
+                  *ngIf="!loadingEffect"
+                  type="submit"
+                  class="btn btn-success">
+                  <i class="bi bi-hdd-fill"></i>
+                  Guardar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- FORM -->
       <div class="row">
-
         <!-- DATA PRODUCT -->
-        <div class="col-6 col-xl-4">
-          <div class="card shadow rounded p-3">
+        <div class="col-6">
+          <div class="card shadow rounded border-0 p-3">
             <p class="fs-5 fw-bold mb-1">Datos del Producto</p>
             <hr class="text-muted mt-1">
 
@@ -234,10 +239,7 @@
                 id="category-LAND"
                 formControlName="category"
                 required>
-                <option selected>Seleccionar</option>
-                <option value="BEBIDAS">Bebidas y Gaseosas</option>
-                <option value="SNACKS">Snacks y Pickeos</option>
-                <option value="GALLETAS">Galletas</option>
+                <option *ngFor="let category of listCategories" value="{{category.name}}">{{category.name}}</option>
               </select>
               <label for="category-LAND">Seleccionar Categoría</label>
             </div>
@@ -249,27 +251,20 @@
                 id="brand-LAND"
                 formControlName="brand"
                 required>
-                <option selected>Seleccionar</option>
-                <option value="COCA COLA">Coca cola</option>
-                <option value="PEPSI">Pepsi</option>
-                <option value="INKA KOLA">Inka Kola</option>
-                <option value="RELLENITA">Rellenita</option>
-                <option value="SUBLIME">Sublime</option>
-                <option value="RITZ">Ritz</option>
-                <option value="LAYS">LAYS</option>
+                <option *ngFor="let brand of listBrands" value="{{brand.name}}">{{brand.name}}</option>
               </select>
               <label for="brand-LAND">Seleccionar Marca</label>
             </div>
 
             <!-- DESCRIPTION -->
             <div class="form-floating mb-3">
-              <textarea
-                class="form-control"
-                placeholder="Descripción"
-                id="description-LAND"
-                style="height: 80px"
-                formControlName="description"
-                required></textarea>
+                <textarea
+                  class="form-control"
+                  placeholder="Descripción"
+                  id="description-LAND"
+                  style="height: 80px"
+                  formControlName="description"
+                  required></textarea>
               <label for="description-LAND">Descripción del producto</label>
             </div>
 
@@ -317,33 +312,32 @@
         </div>
 
         <!-- UPLOAD PHOTOS -->
-        <div class="col-6 col-xl-8">
-          <div class="card shadow rounded p-3">
+        <div class="col-6">
+          <div class="card shadow rounded border-0 p-3">
             <p class="fs-5 fw-bold mb-1">Subir Foto</p>
             <hr class="text-muted mt-1">
 
             <div class="row">
               <ng-container *ngIf="photo_preview && photo_preview !== ''; else defaultPreview">
-                <div class="col-9 col-xl-8">
-
+                <div class="col-9">
                   <!-- BUTTON DELETE PREVIEW -->
                   <button type="button" class="btn btn-danger" (click)="deletePreview()">
                     <i class="bi bi-trash-fill"></i>
                     Borrar
                   </button>
-
                 </div>
-                <div class="col-3 col-xl-4 text-end">
+
+                <div class="col-3 text-end">
                   <img class="img-fluid" style="max-height: 128px" src="{{photo_preview}}"
                        alt="{{photo_file.name}}">
                 </div>
               </ng-container>
 
               <ng-template #defaultPreview>
-                <div class="col-9 col-xl-8">
+                <div class="col-9">
                   <input type="file" class="form-control" (change)="take_photo($event)">
                 </div>
-                <div class="col-3 col-xl-4 text-end">
+                <div class="col-3 text-end">
                   <img class="img-fluid" src="./assets/images/modules/products/product.png" alt="preview">
                 </div>
               </ng-template>

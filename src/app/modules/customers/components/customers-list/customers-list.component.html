@@ -1,5 +1,5 @@
-<!----------------------------->
-<!-- PORTRAIT DESIGN CHECKED -->
+<!--------------------->
+<!-- PORTRAIT DESIGN -->
 <div class="portrait-design">
   <div class="container p-3">
 
@@ -66,125 +66,193 @@
   </div>
 </div>
 
-
-<!------------------------------>
-<!-- LANDSCAPE DESIGN CHECKED -->
+<!---------------------->
+<!-- LANDSCAPE DESIGN -->
 <div class="landscape-design">
-  <div class="container p-2 p-xxl-3">
+  <div class="container p-2">
 
-    <!-- HEADER -->
-    <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
-      <div class="row">
+    <!-- HEADER AND TOOLBAR -->
+    <div class="row mb-2">
+      <div class="col-12">
+        <div class="card shadow rounded border-0 p-2">
+          <div class="row">
 
-        <!-- TITLE -->
-        <div class="col-6 col-lg-8 d-flex justify-content-start">
-          <img class="me-3" ngSrc="./assets/images/modules/customers/customers.png" alt="Clientes" height="32"
-               width="32" priority="">
-          <p class="fs-4 fw-bold m-0 text-uppercase">Clientes</p>
-        </div>
+            <!-- HEADER -->
+            <div class="col-4 d-flex justify-content-start">
+              <img class="ms-2 me-2" ngSrc="./assets/images/modules/customers/customers.png" alt="Clientes" height="32"
+                   width="32" priority="">
+              <p class="fs-5 fw-bold m-0 text-uppercase">Clientes</p>
+            </div>
 
-        <!-- BUTTONS -->
-        <div class="col-6 col-lg-4 d-flex justify-content-end">
-          <!-- BUTTON BACK -->
-          <button
-            [routerLink]="'/home'"
-            type="button"
-            class="btn btn-secondary me-2">
-            <i class="bi bi-arrow-left"></i>
-            Atrás
-          </button>
-          <!-- BUTTON NEW -->
-          <button
-            (click)="getTemplate('NEW')"
-            type="button"
-            class="btn btn-primary">
-            <i class="bi bi-person-fill-add"></i>
-            Nuevo
-          </button>
+            <!-- TOOLBAR -->
+            <div class="col-8 d-flex justify-content-end">
+              <!-- SEARCH -->
+              <div class="input-group w-50 me-2">
+                <input
+                  type="text"
+                  class="form-control border-primary-subtle"
+                  [(ngModel)]="searchText"
+                  placeholder="Buscar por nombres, apellidos o correo electrónico">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+              </div>
+
+              <!-- BUTTON BACK -->
+              <button
+                [routerLink]="'/home'"
+                type="button"
+                class="btn btn-secondary me-2">
+                <i class="bi bi-arrow-left"></i>
+                Atrás
+              </button>
+
+              <!-- BUTTON NEW -->
+              <button
+                (click)="getTemplate('NEW')"
+                type="button"
+                class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i>
+                Nuevo
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- TABLE CUSTOMERS -->
-    <div class="card shadow rounded p-2 p-xxl-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow rounded border-0 p-3">
 
-      <!-- SEARCH -->
-      <div class="row">
-        <div class="col-12">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="searchText"
-              placeholder="Buscar Cliente por nombres y apellidos o correo electrónico">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <!-- TABLE  -->
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive mb-3">
+                <table class="table table-striped">
+                  <thead>
+                  <tr class="text-nowrap text-center">
+                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Nombres y Apellidos</th>
+                    <th scope="col"></th>
+                    <th scope="col">Correo electrónico</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Fecha de nacimiento</th>
+                    <th scope="col">Facebook</th>
+                    <th scope="col">Instagram</th>
+                    <th scope="col">Usuario abonado</th>
+                    <th scope="col">Fecha última actualización</th>
+                    <th scope="col">Fecha de registro</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="text-nowrap text-center"
+                      *ngFor="let customer of listCustomers | customerFilter:searchText | slice: (page-1) * pageSize : page * pageSize; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <!------------------->
+                    <!-- BUTTON DELETE -->
+                    <td class="pe-0">
+                      <button type="button" class="btn btn-danger btn-sm" (click)="openModalDelete(modalDelete)">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                      <ng-template #modalDelete let-modal>
+                        <div class="modal-body text-center">
+                          <p class="lead">¿Desea eliminar el cliente: <span class="fw-bold">{{customer.fullName}}</span>
+                            ?</p>
+                          <!-- BUTTON CANCEL -->
+                          <button
+                            type="button"
+                            class="btn btn-secondary me-3"
+                            (click)="modal.dismiss('Cross click')">
+                            <i class="bi bi-x-circle-fill me-2"></i>
+                            No
+                          </button>
+                          <!-- BUTTON DELETE -->
+                          <button type="button" class="btn btn-danger" (click)="deleteCustomer(customer)">
+                            <i class="bi bi-trash-fill me-2"></i>
+                            Si
+                          </button>
+                        </div>
+                      </ng-template>
+                    </td>
+                    <!----------------->
+                    <!-- BUTTON EDIT -->
+                    <td class="pe-0">
+                      <button type="button" class="btn btn-primary btn-sm" (click)="getCustomerSelected(customer)">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
+                    <!--------------->
+                    <!-- FULL NAME -->
+                    <td>{{customer.fullName}}</td>
+                    <!----------->
+                    <!-- PHOTO -->
+                    <td>
+                      <img
+                        (click)="openModalPhoto(modalPhoto, customer.photoURL1)"
+                        class="cursor-pointer"
+                        style="height: 48px"
+                        src="{{customer.photoURL1}}"
+                        alt="{{customer.fullName}}">
+                      <!-- MODAL PHOTO -->
+                      <ng-template #modalPhoto let-modal>
+                        <div class="modal-header">
+                          <button type="button" class="btn-close" aria-label="Close"
+                                  (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                          <img class="img-fluid" src="{{photoToZoom}}" alt="{{customer.fullName}}">
+                        </div>
+                      </ng-template>
+                    </td>
+                    <!----------->
+                    <!-- EMAIL -->
+                    <td>{{customer.email}}</td>
+                    <!----------->
+                    <!-- PHONE -->
+                    <td>{{customer.phone}}</td>
+                    <!--------->
+                    <!-- DNI -->
+                    <td>{{customer.dni}}</td>
+                    <!-------------->
+                    <!-- BIRTHDAY -->
+                    <td>{{customer.birthDay.toMillis() | date:'MMM d, y'}}</td>
+                    <!-------------->
+                    <!-- FACEBOOK -->
+                    <td *ngIf="customer.facebookURL !== ''">{{customer.facebookURL}}</td>
+                    <td *ngIf="customer.facebookURL === ''">------</td>
+                    <!--------------->
+                    <!-- INSTAGRAM -->
+                    <td *ngIf="customer.instagramURL !== ''">{{customer.instagramURL}}</td>
+                    <td *ngIf="customer.instagramURL === ''">------</td>
+                    <!----------------->
+                    <!-- USER SYSTEM -->
+                    <td *ngIf="customer.userSystem !== ''">{{customer.userSystem}}</td>
+                    <td *ngIf="customer.userSystem === ''">------</td>
+                    <!---------------------->
+                    <!-- LAST UPDATE DATE -->
+                    <td>{{customer.updatedAt.toMillis() | date:'MMM d, y'}}</td>
+                    <!------------------>
+                    <!-- CREATED DATE -->
+                    <td>{{customer.createdAt.toMillis() | date:'MMM d, y'}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <hr class="text-muted mb-3">
-        </div>
-      </div>
 
-      <!-- TABLE  -->
-      <div class="row">
-        <div class="col-12">
-          <div class="table-responsive mb-3">
-            <table class="table table-striped">
-              <thead>
-              <tr class="text-nowrap text-center">
-                <th scope="col">#</th>
-                <th scope="col"></th>
-                <th scope="col">Nombres y Apellidos</th>
-                <th scope="col">Correo electrónico</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">DNI</th>
-                <th scope="col">Fecha de nacimiento</th>
-                <th scope="col">Facebook</th>
-                <th scope="col">Instagram</th>
-                <th scope="col">Usuario abonado</th>
-                <th scope="col">Fecha última actualización</th>
-                <th scope="col">Fecha de registro</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr class="text-nowrap text-center"
-                  *ngFor="let customer of listCustomers | customerFilter:searchText | slice: (page-1) * pageSize : page * pageSize; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  <img style="height: 48px;cursor:pointer" (click)="getCustomerSelected(customer)"
-                       src="{{customer.photoURL1}}"
-                       alt="{{customer.fullName}}">
-                </td>
-                <td>{{customer.fullName}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.phone}}</td>
-                <td>{{customer.dni}}</td>
-                <td>{{customer.birthDay.toMillis() | date:'MMM d, y'}}</td>
-
-                <td *ngIf="customer.facebookURL !== ''">{{customer.facebookURL}}</td>
-                <td *ngIf="customer.facebookURL === ''">------</td>
-
-                <td *ngIf="customer.instagramURL !== ''">{{customer.instagramURL}}</td>
-                <td *ngIf="customer.instagramURL === ''">------</td>
-
-                <td *ngIf="customer.userSystem !== ''">{{customer.userSystem}}</td>
-                <td *ngIf="customer.userSystem === ''">------</td>
-
-                <td>{{customer.updatedAt.toMillis() | date:'MMM d, y'}}</td>
-                <td>{{customer.createdAt.toMillis() | date:'MMM d, y'}}</td>
-              </tr>
-              </tbody>
-            </table>
+          <!-- PAGINATION -->
+          <div class="row">
+            <div class="col-12">
+              <ngb-pagination [collectionSize]="listCustomers.length" [pageSize]="pageSize"
+                              [(page)]="page"></ngb-pagination>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <!-- PAGINATION -->
-      <div class="row">
-        <div class="col-12">
-          <ngb-pagination [collectionSize]="listCustomers.length" [pageSize]="pageSize"
-                          [(page)]="page"></ngb-pagination>
         </div>
       </div>
     </div>
-
   </div>
 </div>

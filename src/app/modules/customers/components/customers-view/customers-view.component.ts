@@ -13,7 +13,7 @@ export class CustomersViewComponent {
   @Output() outTemplate = new EventEmitter<string>();
 
   /** VARIABLES **/
-  imageFullSize: string = '';
+  imageToZoom: string = '';
 
   constructor(private modalService: NgbModal, private customerService: CustomerService) {
   }
@@ -28,7 +28,7 @@ export class CustomersViewComponent {
 
   openModalPhoto(modalPhoto: any, photo: string) {
     this.modalService.open(modalPhoto, {centered: true, backdrop: "static"});
-    this.imageFullSize = photo;
+    this.imageToZoom = photo;
   }
 
   async deleteCustomer(customer: Customer) {

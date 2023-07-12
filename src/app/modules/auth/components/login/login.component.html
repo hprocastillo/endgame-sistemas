@@ -1,7 +1,7 @@
-<!-------------------------------------------->
-<!-- PORTRAIT DESIGN - 100% CHECKED ---------->
+<!--------------------->
+<!-- PORTRAIT DESIGN -->
 <div class="portrait-design">
-  <div class="container-fluid bg-dark vh-100">
+  <div class="container-fluid p-3 bg-dark vh-100">
     <div class="row">
       <div class="col-10 offset-1 col-sm-6 offset-sm-3 text-center">
 
@@ -10,10 +10,10 @@
              priority="">
 
         <!-- FORM -->
-        <div class="card shadow rounder p-3 border-0">
+        <div class="card shadow rounded p-3">
           <p class="fs-5 fw-bold">Inicio de sesión</p>
-
           <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+
             <!-- EMAIL -->
             <div class="form-floating mb-3">
               <input
@@ -26,22 +26,28 @@
             </div>
 
             <!-- PASSWORD -->
-            <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                id="password-PORT"
-                placeholder="Contraseña"
-                formControlName="password">
-              <label for="password-PORT">Contraseña</label>
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input
+                  [type]="typeInput"
+                  class="form-control"
+                  id="password-PORT"
+                  placeholder="Contraseña"
+                  formControlName="password">
+                <label for="password-PORT">Contraseña</label>
+              </div>
+              <button type="button" class="btn btn-dark" (click)="showPassword()">
+                <i class="bi bi-eye-fill" *ngIf="!password"></i>
+                <i class="bi bi-eye-slash-fill" *ngIf="password"></i>
+              </button>
             </div>
 
             <!-- BUTTON SUBMIT -->
             <button type="submit" class="btn btn-dark w-100">
               INGRESAR
             </button>
-          </form>
 
+          </form>
         </div>
       </div>
     </div>
@@ -49,22 +55,25 @@
 </div>
 
 
-<!-------------------------------------------->
-<!-- LANDSCAPE DESIGN - ??? CHECKED ---------->
+<!---------------------->
+<!-- LANDSCAPE DESIGN -->
 <div class="landscape-design">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-6 bg-dark text-center vh-100 p-5">
+
+      <!-- ENDGAME LOGO -->
+      <div class="col-6 p-5 bg-dark text-center vh-100">
         <!-- LOGO -->
-        <img class="img-fluid mt-lg-5" src="./assets/images/modules/login/endgame-desktop.png" alt="endgame">
+        <img class="img-fluid m-auto mt-xl-5" src="./assets/images/modules/login/endgame-desktop.png" alt="endgame">
       </div>
 
-      <div class="col-6 col-lg-4 offset-lg-1 col-xl-4 offset-xl-1 pt-3 pt-lg-5 pt-xl-5">
-        <!-- FORM -->
-        <div class="card shadow rounder p-3 m-3 m-lg-3 m-xl-5 border-0 text-center">
+      <!-- FORM LOGIN -->
+      <div class="col-6 p-5 col-xl-4 offset-xl-1">
+        <div class="card mt-xl-5 m-xxl-5 shadow rounded p-3 border-0 text-center">
           <p class="fs-5 fw-bold">Inicio de sesión</p>
 
           <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+
             <!-- EMAIL -->
             <div class="form-floating mb-3">
               <input
@@ -77,14 +86,20 @@
             </div>
 
             <!-- PASSWORD -->
-            <div class="form-floating mb-3">
-              <input
-                type="password"
-                class="form-control"
-                id="password-LAND"
-                placeholder="Contraseña"
-                formControlName="password">
-              <label for="password-LAND">Contraseña</label>
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input
+                  [type]="typeInput"
+                  class="form-control"
+                  id="password-LAND"
+                  placeholder="Contraseña"
+                  formControlName="password">
+                <label for="password-LAND">Contraseña</label>
+              </div>
+              <button type="button" class="btn btn-dark" (click)="showPassword()">
+                <i class="bi bi-eye-fill" *ngIf="!password"></i>
+                <i class="bi bi-eye-slash-fill" *ngIf="password"></i>
+              </button>
             </div>
 
             <!-- BUTTON SUBMIT -->

@@ -12,13 +12,15 @@ import {
   NgbAccordionItem,
   NgbPagination
 } from "@ng-bootstrap/ng-bootstrap";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
   SettingsProductsCategoriesComponent
 } from './components/settings-products-categories/settings-products-categories.component';
 import {
   SettingsProductsBrandsComponent
 } from "./components/settings-products-brands/settings-products-brands.component";
+import { BrandFilterPipe } from './pipes/brand-filter.pipe';
+import { CategoryFilterPipe } from './pipes/category-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import {
     SettingsListComponent,
     SettingsProductsCategoriesComponent,
     SettingsProductsBrandsComponent,
+    BrandFilterPipe,
+    CategoryFilterPipe,
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,8 @@ import {
     NgbAccordionItem,
     NgbAccordionButton,
     NgbAccordionCollapse,
-    NgbAccordionBody
+    NgbAccordionBody,
+    FormsModule
   ]
 })
 export class SettingsModule {

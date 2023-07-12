@@ -1,20 +1,20 @@
-<!----------------------------->
-<!-- PORTRAIT DESIGN CHECKED -->
+<!--------------------->
+<!-- PORTRAIT DESIGN -->
 <div class="portrait-design">
   <div class="container p-3">
 
     <!-- HEADER -->
     <div class="row">
       <div class="col-10 col-md-11">
-        <p class="fs-4 fw-bold text-uppercase">Productos</p>
+        <p class="fs-4 fw-bold text-uppercase">PRODUCTOS</p>
       </div>
       <div class="col-2 col-md-1">
-        <img class="img-fluid" src="./assets/images/modules/products/products.png" alt="Productos">
+        <img class="img-fluid" src="./assets/images/modules/products/products.png" alt="PRODUCTOS">
       </div>
     </div>
 
     <!-- SEARCH -->
-    <div class="row mb-3">
+    <div class="row">
       <div class="col-12">
         <div class="input-group">
           <input
@@ -31,9 +31,8 @@
     <div class="row margin-bottom-page">
       <div class="col-12">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border-0 p-0 mb-3"
-              *ngFor="let product of listProducts | productFilter:searchText"
-              (click)="getProductSelected(product)">
+          <li class="list-group-item border-0 p-0 mt-3 cursor-pointer"
+              *ngFor="let product of listProducts | productFilter:searchText" (click)="getSelectProduct(product)">
 
             <app-products-list-item [product]="product"></app-products-list-item>
 
@@ -68,112 +67,184 @@
   </div>
 </div>
 
-
-<!------------------------------>
-<!-- LANDSCAPE DESIGN CHECKED -->
+<!---------------------->
+<!-- LANDSCAPE DESIGN -->
 <div class="landscape-design">
-  <div class="container p-2 p-xxl-3">
+  <div class="container p-2">
 
-    <!-- HEADER -->
-    <div class="card shadow rounded p-2 mb-2 p-xxl-3 mb-xxl-3">
-      <div class="row">
+    <!-- HEADER AND TOOLBAR -->
+    <div class="row mb-2">
+      <div class="col-12">
+        <div class="card shadow rounded border-0 p-2">
+          <div class="row">
 
-        <!-- TITLE -->
-        <div class="col-6 col-lg-8 d-flex justify-content-start">
-          <img class="me-3" ngSrc="./assets/images/modules/products/products.png" alt="Productos" height="32"
-               width="32" priority="">
-          <p class="fs-4 fw-bold m-0 text-uppercase">Productos</p>
-        </div>
+            <!-- HEADER -->
+            <div class="col-4 d-flex justify-content-start">
+              <img class="ms-2 me-2" ngSrc="./assets/images/modules/products/products.png" alt="PRODUCTOS" height="32"
+                   width="32" priority="">
+              <p class="fs-5 fw-bold m-0 text-uppercase">PRODUCTOS</p>
+            </div>
 
-        <!-- BUTTONS -->
-        <div class="col-6 col-lg-4 d-flex justify-content-end">
-          <!-- BUTTON BACK -->
-          <button
-            [routerLink]="'/home'"
-            type="button"
-            class="btn btn-secondary me-2">
-            <i class="bi bi-arrow-left"></i>
-            Atrás
-          </button>
-          <!-- BUTTON NEW -->
-          <button
-            (click)="getTemplate('NEW')"
-            type="button"
-            class="btn btn-primary">
-            <i class="bi bi-person-fill-add"></i>
-            Nuevo
-          </button>
+            <!-- TOOLBAR -->
+            <div class="col-8 d-flex justify-content-end">
+              <!-- SEARCH -->
+              <div class="input-group w-50 me-2">
+                <input
+                  type="text"
+                  class="form-control border-primary-subtle"
+                  [(ngModel)]="searchText"
+                  placeholder="Buscar por marca o descripción:">
+                <span class="input-group-text border-primary-subtle"><i class="bi  bi-search"></i></span>
+              </div>
+
+              <!-- BUTTON BACK -->
+              <button
+                [routerLink]="'/home'"
+                type="button"
+                class="btn btn-secondary me-2">
+                <i class="bi bi-arrow-left"></i>
+                Atrás
+              </button>
+
+              <!-- BUTTON NEW -->
+              <button
+                (click)="getTemplate('NEW')"
+                type="button"
+                class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i>
+                Nuevo
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- TABLE CUSTOMERS -->
-    <div class="card shadow rounded p-2 p-xxl-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow rounded border-0 p-3">
 
-      <!-- SEARCH -->
-      <div class="row">
-        <div class="col-12">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="searchText"
-              placeholder="Buscar producto por marca o descripción:">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <!-- TABLE  -->
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive mb-3">
+                <table class="table table-striped">
+                  <thead>
+                  <tr class="text-nowrap text-center">
+                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col"></th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Código de barras</th>
+                    <th scope="col">Fecha última actualización</th>
+                    <th scope="col">Fecha de registro</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="text-nowrap text-center"
+                      *ngFor="let product of listProducts | productFilter:searchText | slice: (page-1) * pageSize : page * pageSize; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <!------------------->
+                    <!-- BUTTON DELETE -->
+                    <td class="pe-0">
+                      <button type="button" class="btn btn-danger btn-sm" (click)="openModalDelete(modalDelete)">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                      <ng-template #modalDelete let-modal>
+                        <div class="modal-body text-center">
+                          <p class="lead">¿Desea eliminar el producto: <span
+                            class="fw-bold">{{product.description}}</span>
+                            ?</p>
+                          <!-- BUTTON CANCEL -->
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm me-3"
+                            (click)="modal.dismiss('Cross click')">
+                            <i class="bi bi-x-circle-fill me-2"></i>
+                            No
+                          </button>
+                          <!-- BUTTON DELETE -->
+                          <button type="button" class="btn btn-danger btn-sm" (click)="deleteProduct(product)">
+                            <i class="bi bi-trash-fill me-2"></i>
+                            Si
+                          </button>
+                        </div>
+                      </ng-template>
+                    </td>
+                    <!----------------->
+                    <!-- BUTTON EDIT -->
+                    <td class="pe-0">
+                      <button type="button" class="btn btn-primary btn-sm" (click)="getSelectProduct(product)">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
+                    <!-------------->
+                    <!-- CATEGORY -->
+                    <td>{{product.category}}</td>
+                    <!----------->
+                    <!-- PHOTO -->
+                    <td>
+                      <img
+                        (click)="openModalPhoto(modalPhoto, product.photoURL)"
+                        class="cursor-pointer"
+                        style="height: 48px"
+                        src="{{product.photoURL}}"
+                        alt="{{product.description}}">
+                      <!-- MODAL PHOTO -->
+                      <ng-template #modalPhoto let-modal>
+                        <div class="modal-header">
+                          <button type="button" class="btn-close" aria-label="Close"
+                                  (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                          <img class="img-fluid" src="{{photoToZoom}}" alt="{{product.description}}">
+                        </div>
+                      </ng-template>
+                    </td>
+                    <!----------------->
+                    <!-- DESCRIPTION -->
+                    <td>{{product.description}}</td>
+                    <!----------->
+                    <!-- BRAND -->
+                    <td>{{product.brand}}</td>
+                    <!----------->
+                    <!-- PRICE -->
+                    <td>{{product.price}}</td>
+                    <!----------->
+                    <!-- STOCK -->
+                    <td>{{product.stock}}</td>
+                    <!------------->
+                    <!-- BARCODE -->
+                    <td>{{product.barcode}}</td>
+                    <!---------------------->
+                    <!-- LAST UPDATE DATE -->
+                    <td>{{product.updatedAt.toMillis() | date:'MMM d, y'}}</td>
+                    <!------------------>
+                    <!-- CREATED DATE -->
+                    <td>{{product.createdAt.toMillis() | date:'MMM d, y'}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <hr class="text-muted mb-3">
-        </div>
-      </div>
 
-      <!-- TABLE  -->
-      <div class="row">
-        <div class="col-12">
-          <div class="table-responsive mb-3">
-            <table class="table table-striped">
-              <thead>
-              <tr class="text-nowrap text-center">
-                <th scope="col">#</th>
-                <th scope="col"></th>
-                <th scope="col">Categoría</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Código de barras</th>
-                <th scope="col">Fecha última actualización</th>
-                <th scope="col">Fecha de registro</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr class="text-nowrap text-center"
-                  *ngFor="let product of listProducts | productFilter:searchText; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  <img (click)="getProductSelected(product)" class="cursor-pointer" style="height: 48px" src="{{product.photoURL}}"
-                       alt="{{product.description}}">
-                </td>
-                <td>{{product.category}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.brand}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.stock}}</td>
-                <td>{{product.barcode}}</td>
-                <td>{{product.updatedAt.toMillis() | date:'MMM d, y'}}</td>
-                <td>{{product.createdAt.toMillis() | date:'MMM d, y'}}</td>
-              </tr>
-              </tbody>
-            </table>
+          <!-- PAGINATION -->
+          <div class="row">
+            <div class="col-12">
+              <ngb-pagination [collectionSize]="listProducts.length" [pageSize]="pageSize"
+                              [(page)]="page"></ngb-pagination>
+            </div>
           </div>
+
         </div>
       </div>
-
-      <!-- PAGINATION -->
-      <div class="row">
-        <div class="col-12">
-          <ngb-pagination [collectionSize]="listProducts.length" [pageSize]="pageSize" [(page)]="page"></ngb-pagination>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>

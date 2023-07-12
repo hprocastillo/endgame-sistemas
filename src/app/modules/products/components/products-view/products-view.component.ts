@@ -14,7 +14,7 @@ export class ProductsViewComponent {
   @Output() outTemplate = new EventEmitter<string>();
 
   /** VARIABLES **/
-  imageFullSize: string = '';
+  imageToZoom: string = '';
 
   constructor(private modalService: NgbModal, private productService: ProductService) {
   }
@@ -29,7 +29,7 @@ export class ProductsViewComponent {
 
   openModalPhoto(modalPhoto: any, photo: string) {
     this.modalService.open(modalPhoto, {centered: true, backdrop: "static"});
-    this.imageFullSize = photo;
+    this.imageToZoom = photo;
   }
 
   async deleteProduct(product: Product) {
