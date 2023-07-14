@@ -4,6 +4,7 @@ import {User} from "@angular/fire/auth";
 import {CustomerService} from "../../services/customer.service";
 import {getDownloadURL, ref, Storage, uploadBytes} from "@angular/fire/storage";
 import {Timestamp} from "firebase/firestore";
+import {NgxImageCompressService} from "ngx-image-compress";
 
 @Component({
   selector: 'app-customers-edit',
@@ -23,12 +24,21 @@ export class CustomersEditComponent implements OnInit {
   /** PHOTO FILES **/
   photo1_file: string | any;
   photo1_preview: string = '';
+  photo1_file_compressed: string | any;
+  photo1_resultAfterCompress: string = '';
   photo2_file: string | any;
   photo2_preview: string = '';
+  photo2_file_compressed: string | any;
+  photo2_resultAfterCompress: string = '';
   photo3_file: string | any;
   photo3_preview: string = '';
+  photo3_file_compressed: string | any;
+  photo3_resultAfterCompress: string = '';
 
-  constructor(private customerService: CustomerService, private storage: Storage) {
+  constructor(
+    private imageCompress: NgxImageCompressService,
+    private customerService: CustomerService,
+    private storage: Storage) {
   }
 
   ngOnInit(): void {
@@ -50,8 +60,19 @@ export class CustomersEditComponent implements OnInit {
     const reader: FileReader = new FileReader();
     reader.onload = () => {
       this.photo1_preview = reader.result as string;
+      this.compressFile1(this.photo1_preview);
     }
     reader.readAsDataURL(this.photo1_file);
+  }
+
+  compressFile1(imagePreview: any) {
+    let orientation: number = -1;
+    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
+      result => {
+        this.photo1_resultAfterCompress = result;
+        this.photo1_file_compressed = this.dataURItoBlob(this.photo1_resultAfterCompress.split(',')[1]);
+      }
+    );
   }
 
   take_photo2($event: any) {
@@ -59,8 +80,19 @@ export class CustomersEditComponent implements OnInit {
     const reader: FileReader = new FileReader();
     reader.onload = () => {
       this.photo2_preview = reader.result as string;
+      this.compressFile2(this.photo2_preview);
     }
     reader.readAsDataURL(this.photo2_file);
+  }
+
+  compressFile2(imagePreview: any) {
+    let orientation: number = -1;
+    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
+      result => {
+        this.photo2_resultAfterCompress = result;
+        this.photo2_file_compressed = this.dataURItoBlob(this.photo2_resultAfterCompress.split(',')[1]);
+      }
+    );
   }
 
   take_photo3($event: any) {
@@ -68,8 +100,29 @@ export class CustomersEditComponent implements OnInit {
     const reader: FileReader = new FileReader();
     reader.onload = () => {
       this.photo3_preview = reader.result as string;
+      this.compressFile3(this.photo3_preview);
     }
     reader.readAsDataURL(this.photo3_file);
+  }
+
+  compressFile3(imagePreview: any) {
+    let orientation: number = -1;
+    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
+      result => {
+        this.photo3_resultAfterCompress = result;
+        this.photo3_file_compressed = this.dataURItoBlob(this.photo3_resultAfterCompress.split(',')[1]);
+      }
+    );
+  }
+
+  dataURItoBlob(dataURI: any) {
+    const byteString: string = window.atob(dataURI);
+    const arrayBuffer: ArrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array: Uint8Array = new Uint8Array(arrayBuffer);
+    for (let i: number = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([int8Array], {type: 'image/*'});
   }
 
   deletePreview(photo: string) {
@@ -102,15 +155,15 @@ export class CustomersEditComponent implements OnInit {
       const storageRef3 = ref(this.storage, `customers/${this.photo3_file.name}`);
 
       /** UPLOAD PHOTO 1 **/
-      uploadBytes(storageRef1, this.photo1_file)
+      uploadBytes(storageRef1, this.photo1_file_compressed)
         .then(async () => {
           editCustomer.photoURL1 = await getDownloadURL(storageRef1);
           /** UPLOAD PHOTO 2 **/
-          uploadBytes(storageRef2, this.photo2_file)
+          uploadBytes(storageRef2, this.photo2_file_compressed)
             .then(async () => {
               editCustomer.photoURL2 = await getDownloadURL(storageRef2);
               /** UPLOAD PHOTO 3 **/
-              uploadBytes(storageRef3, this.photo3_file)
+              uploadBytes(storageRef3, this.photo3_file_compressed)
                 .then(async () => {
                   editCustomer.photoURL3 = await getDownloadURL(storageRef3);
                   await this.customerService.updateCustomer(editCustomer);
@@ -130,7 +183,7 @@ export class CustomersEditComponent implements OnInit {
       /********************** UPLOAD JUST PHOTO 1 *************************/
     } else if (this.photo1_file && !this.photo2_file && !this.photo3_file) {
       const storageRef1 = ref(this.storage, `customers/${this.photo1_file.name}`);
-      uploadBytes(storageRef1, this.photo1_file)
+      uploadBytes(storageRef1, this.photo1_file_compressed)
         .then(async () => {
           editCustomer.photoURL1 = await getDownloadURL(storageRef1);
           await this.customerService.updateCustomer(editCustomer);
@@ -141,7 +194,7 @@ export class CustomersEditComponent implements OnInit {
       /********************** UPLOAD JUST PHOTO 2 *************************/
     } else if (!this.photo1_file && this.photo2_file && !this.photo3_file) {
       const storageRef2 = ref(this.storage, `customers/${this.photo2_file.name}`);
-      uploadBytes(storageRef2, this.photo2_file)
+      uploadBytes(storageRef2, this.photo2_file_compressed)
         .then(async () => {
           editCustomer.photoURL2 = await getDownloadURL(storageRef2);
           await this.customerService.updateCustomer(editCustomer);
@@ -152,7 +205,7 @@ export class CustomersEditComponent implements OnInit {
       /********************** UPLOAD JUST PHOTO 3 *************************/
     } else if (!this.photo1_file && !this.photo2_file && this.photo3_file) {
       const storageRef3 = ref(this.storage, `customers/${this.photo3_file.name}`);
-      uploadBytes(storageRef3, this.photo3_file)
+      uploadBytes(storageRef3, this.photo3_file_compressed)
         .then(async () => {
           editCustomer.photoURL3 = await getDownloadURL(storageRef3);
           await this.customerService.updateCustomer(editCustomer);
@@ -165,11 +218,11 @@ export class CustomersEditComponent implements OnInit {
       const storageRef1 = ref(this.storage, `customers/${this.photo1_file.name}`);
       const storageRef2 = ref(this.storage, `customers/${this.photo2_file.name}`);
       /** UPLOAD PHOTO 1 **/
-      uploadBytes(storageRef1, this.photo1_file)
+      uploadBytes(storageRef1, this.photo1_file_compressed)
         .then(async () => {
           editCustomer.photoURL1 = await getDownloadURL(storageRef1);
           /** UPLOAD PHOTO 2 **/
-          uploadBytes(storageRef2, this.photo2_file)
+          uploadBytes(storageRef2, this.photo2_file_compressed)
             .then(async () => {
               editCustomer.photoURL2 = await getDownloadURL(storageRef2);
               await this.customerService.updateCustomer(editCustomer);
@@ -185,11 +238,11 @@ export class CustomersEditComponent implements OnInit {
       const storageRef1 = ref(this.storage, `customers/${this.photo1_file.name}`);
       const storageRef3 = ref(this.storage, `customers/${this.photo3_file.name}`);
       /** UPLOAD PHOTO 1 **/
-      uploadBytes(storageRef1, this.photo1_file)
+      uploadBytes(storageRef1, this.photo1_file_compressed)
         .then(async () => {
           editCustomer.photoURL1 = await getDownloadURL(storageRef1);
           /** UPLOAD PHOTO 3 **/
-          uploadBytes(storageRef3, this.photo3_file)
+          uploadBytes(storageRef3, this.photo3_file_compressed)
             .then(async () => {
               editCustomer.photoURL3 = await getDownloadURL(storageRef3);
               await this.customerService.updateCustomer(editCustomer);
@@ -204,11 +257,11 @@ export class CustomersEditComponent implements OnInit {
       const storageRef2 = ref(this.storage, `customers/${this.photo2_file.name}`);
       const storageRef3 = ref(this.storage, `customers/${this.photo3_file.name}`);
       /** UPLOAD PHOTO 2 **/
-      uploadBytes(storageRef2, this.photo2_file)
+      uploadBytes(storageRef2, this.photo2_file_compressed)
         .then(async () => {
           editCustomer.photoURL2 = await getDownloadURL(storageRef2);
           /** UPLOAD PHOTO 3 **/
-          uploadBytes(storageRef3, this.photo3_file)
+          uploadBytes(storageRef3, this.photo3_file_compressed)
             .then(async () => {
               editCustomer.photoURL3 = await getDownloadURL(storageRef3);
               await this.customerService.updateCustomer(editCustomer);
