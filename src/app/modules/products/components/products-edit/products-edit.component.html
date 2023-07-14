@@ -165,7 +165,6 @@
   </div>
 </div>
 
-
 <!---------------------->
 <!-- LANDSCAPE DESIGN -->
 <div class="landscape-design">
@@ -206,6 +205,7 @@
               <!-- BUTTON SAVE -->
               <button
                 *ngIf="!loadingEffect"
+                (click)="onSubmit(product, firebaseUser)"
                 type="submit"
                 class="btn btn-success">
                 <i class="bi bi-hdd-fill"></i>
