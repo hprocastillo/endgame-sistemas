@@ -11,6 +11,7 @@ import {NgxImageCompressService} from "ngx-image-compress";
   templateUrl: './customers-edit.component.html',
   styleUrls: ['./customers-edit.component.scss']
 })
+
 export class CustomersEditComponent implements OnInit {
   @Input() customer = {} as Customer;
   @Input() firebaseUser = {} as User;
@@ -67,12 +68,16 @@ export class CustomersEditComponent implements OnInit {
 
   compressFile1(imagePreview: any) {
     let orientation: number = -1;
-    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
-      result => {
-        this.photo1_resultAfterCompress = result;
-        this.photo1_file_compressed = this.dataURItoBlob(this.photo1_resultAfterCompress.split(',')[1]);
-      }
-    );
+    if (this.photo1_file['size'] > 51200) {
+      this.imageCompress.compressFile(imagePreview, orientation, 50, 50).then(
+        result => {
+          this.photo1_resultAfterCompress = result;
+          this.photo1_file_compressed = this.dataURItoBlob(this.photo1_resultAfterCompress.split(',')[1]);
+        }
+      );
+    } else {
+      this.photo1_file_compressed = this.photo1_file;
+    }
   }
 
   take_photo2($event: any) {
@@ -87,12 +92,16 @@ export class CustomersEditComponent implements OnInit {
 
   compressFile2(imagePreview: any) {
     let orientation: number = -1;
-    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
-      result => {
-        this.photo2_resultAfterCompress = result;
-        this.photo2_file_compressed = this.dataURItoBlob(this.photo2_resultAfterCompress.split(',')[1]);
-      }
-    );
+    if (this.photo2_file['size'] > 51200) {
+      this.imageCompress.compressFile(imagePreview, orientation, 50, 50).then(
+        result => {
+          this.photo2_resultAfterCompress = result;
+          this.photo2_file_compressed = this.dataURItoBlob(this.photo2_resultAfterCompress.split(',')[1]);
+        }
+      );
+    } else {
+      this.photo2_file_compressed = this.photo2_file;
+    }
   }
 
   take_photo3($event: any) {
@@ -107,12 +116,16 @@ export class CustomersEditComponent implements OnInit {
 
   compressFile3(imagePreview: any) {
     let orientation: number = -1;
-    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
-      result => {
-        this.photo3_resultAfterCompress = result;
-        this.photo3_file_compressed = this.dataURItoBlob(this.photo3_resultAfterCompress.split(',')[1]);
-      }
-    );
+    if (this.photo3_file['size'] > 51200) {
+      this.imageCompress.compressFile(imagePreview, orientation, 50, 50).then(
+        result => {
+          this.photo3_resultAfterCompress = result;
+          this.photo3_file_compressed = this.dataURItoBlob(this.photo3_resultAfterCompress.split(',')[1]);
+        }
+      );
+    } else {
+      this.photo3_file_compressed = this.photo3_file;
+    }
   }
 
   dataURItoBlob(dataURI: any) {
@@ -122,7 +135,7 @@ export class CustomersEditComponent implements OnInit {
     for (let i: number = 0; i < byteString.length; i++) {
       int8Array[i] = byteString.charCodeAt(i);
     }
-    return new Blob([int8Array], {type: 'image/*'});
+    return new Blob([int8Array], {type: 'image/jpeg'});
   }
 
   deletePreview(photo: string) {

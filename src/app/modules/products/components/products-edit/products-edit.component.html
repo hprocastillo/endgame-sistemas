@@ -306,33 +306,38 @@
       <!-- UPLOAD PHOTO -->
       <div class="col-6">
         <div class="card shadow rounded border-0 p-3">
+          <p class="fs-5 fw-bold mb-1">Editar Foto</p>
+          <hr class="text-muted mt-1">
 
-          <div class="row">
-            <ng-container *ngIf="photo_preview && photo_preview !== ''; else imageDBLAND">
-              <div class="col-9">
-
-                <!-- BUTTON DELETE PREVIEW -->
+          <ng-container *ngIf="photo_preview && photo_preview !== ''; else imageDBLAND">
+            <div class="row mb-5">
+              <div class="col-12 text-center">
+                <img class="img-fluid" style="max-height: 256px" src="{{photo_preview}}"
+                     alt="{{photo_file.name}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-center">
                 <button type="button" class="btn btn-danger" (click)="deletePreview()">
                   <i class="bi bi-trash-fill"></i>
                   Borrar
                 </button>
-
               </div>
-              <div class="col-3 text-end">
-                <img class="img-fluid" style="max-height: 200px" src="{{photo_preview}}"
-                     alt="{{photo_file.name}}">
-              </div>
-            </ng-container>
+            </div>
+          </ng-container>
 
-            <ng-template #imageDBLAND>
-              <div class="col-9">
+          <ng-template #imageDBLAND>
+            <div class="row mb-5">
+              <div class="col-12">
                 <input type="file" class="form-control" (change)="take_photo($event)">
               </div>
-              <div class="col-3 text-end">
-                <img class="img-fluid" src="{{product.photoURL}}" alt="{{product.description}}">
+            </div>
+            <div class="row">
+              <div class="col-12 text-center">
+                <img class="img-fluid" style="max-height: 256px" src="{{product.photoURL}}" alt="{{product.description}}">
               </div>
-            </ng-template>
-          </div>
+            </div>
+          </ng-template>
 
         </div>
       </div>

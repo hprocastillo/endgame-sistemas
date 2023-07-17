@@ -141,20 +141,17 @@
           </div>
         </ng-container>
 
+
         <!-- PHOTO 1 -->
         <div class="col-4 text-center">
           <ng-container *ngIf="photo1_preview && photo1_preview !== ''; else noPreview1">
             <div class="container-camera">
-              <input type="file" (change)="take_photo1($event)" accept="image/*;capture=camera">
               <img class="img-fluid" src="{{photo1_preview}}" alt="{{photo1_file.name}}">
               <p class="small text-muted">PERFIL</p>
             </div>
 
-            <!-- BUTTON DELETE -->
-            <button
-              (click)="deletePreview('PHOTO 1')"
-              type="button"
-              class="btn btn-danger">
+            <!-- BUTTON DELETE PREVIEW -->
+            <button (click)="deletePreview('PHOTO 1')" type="button" class="btn btn-danger">
               <i class="bi bi-trash-fill"></i>
             </button>
           </ng-container>
@@ -172,16 +169,12 @@
         <div class="col-4 text-center">
           <ng-container *ngIf="photo2_preview && photo2_preview !== ''; else noPreview2">
             <div class="container-camera">
-              <input type="file" (change)="take_photo2($event)" accept="image/*;capture=camera">
               <img class="img-fluid" src="{{photo2_preview}}" alt="{{photo2_file.name}}">
               <p class="small text-muted">DNI</p>
             </div>
 
-            <!-- BUTTON DELETE -->
-            <button
-              (click)="deletePreview('PHOTO 2')"
-              type="button"
-              class="btn btn-danger">
+            <!-- BUTTON DELETE PREVIEW -->
+            <button (click)="deletePreview('PHOTO 2')" type="button" class="btn btn-danger">
               <i class="bi bi-trash-fill"></i>
             </button>
           </ng-container>
@@ -199,16 +192,12 @@
         <div class="col-4 text-center">
           <ng-container *ngIf="photo3_preview && photo3_preview !== ''; else noPreview3">
             <div class="container-camera">
-              <input type="file" (change)="take_photo3($event)" accept="image/*;capture=camera">
               <img class="img-fluid" src="{{photo3_preview}}" alt="{{photo3_file.name}}">
               <p class="small text-muted">REDES</p>
             </div>
 
-            <!-- BUTTON DELETE -->
-            <button
-              (click)="deletePreview('PHOTO 3')"
-              type="button"
-              class="btn btn-danger">
+            <!-- BUTTON DELETE PREVIEW -->
+            <button (click)="deletePreview('PHOTO 3')" type="button" class="btn btn-danger">
               <i class="bi bi-trash-fill"></i>
             </button>
           </ng-container>
@@ -234,6 +223,7 @@
             <i class="bi bi-x-circle-fill"></i>
             Cancelar
           </button>
+
         </div>
         <div class="col-6">
           <!-- BUTTON SAVE /W LOADING EFFECT -->
@@ -259,6 +249,7 @@
     </form>
   </div>
 </div>
+
 
 <!---------------------->
 <!-- LANDSCAPE DESIGN -->

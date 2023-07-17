@@ -80,14 +80,19 @@ export class ProductsNewComponent implements OnInit, OnDestroy {
     }
     reader.readAsDataURL(this.photo_file);
   }
+
   compressFile(imagePreview: any) {
     let orientation: number = -1;
-    this.imageCompress.compressFile(imagePreview, orientation, 40, 40).then(
-      result => {
-        this.imgResultAfterCompress = result;
-        this.photo_file_compressed = this.dataURItoBlob(this.imgResultAfterCompress.split(',')[1]);
-      }
-    );
+    if (this.photo_file['size'] > 51200) {
+      this.imageCompress.compressFile(imagePreview, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          this.photo_file_compressed = this.dataURItoBlob(this.imgResultAfterCompress.split(',')[1]);
+        }
+      );
+    } else {
+      this.photo_file_compressed = this.photo_file;
+    }
   }
 
   dataURItoBlob(dataURI: any) {
@@ -97,7 +102,7 @@ export class ProductsNewComponent implements OnInit, OnDestroy {
     for (let i: number = 0; i < byteString.length; i++) {
       int8Array[i] = byteString.charCodeAt(i);
     }
-    return new Blob([int8Array], {type: 'image/*'});
+    return new Blob([int8Array], {type: 'image/jpeg'});
   }
 
   deletePreview() {
